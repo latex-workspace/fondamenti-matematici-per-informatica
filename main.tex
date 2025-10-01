@@ -3,6 +3,12 @@
 \usepackage{subcaption}
 \usepackage{multirow}
 \usepackage{circuitikz}
+
+
+\usetikzlibrary{external}
+\tikzset{external/system call={pdflatex --shell-escape --fmt=../.preamble --halt-on-error -jobname "\image" "\endofdump\texsource"}}
+\tikzexternalize[prefix=tikz/]
+
 \title{Fondamenti matematici per l'informatica}
 \author{Mattia Marini}
 
@@ -12,14 +18,16 @@
 \tableofcontents
 \listofdefs
 \listoftheorems
+\newpage
+
 \section{Insiemistica}
 \subsubsection*{Definzioni di base sugli insiemi}
-\definizione{Insieme}{
+\begin{definizione}{Insieme}
 	Un insieme è una \underline{collezione di oggetti}, detti suoi elementi. La caratteristica fondamentale di un insieme è che si possa stabilire senza ambguità se qualcosa vi appartiene o meno:
 	\[
 		x \in  A \text{ oppure } x \not \in A
 	\]
-}
+\end{definizione}
 Quest'ultima caratteristica, sembra scontata ma non lo è. Considera il seguente insieme:
 \[
 	A = \left\{x | x \not  \in  x \right\}
@@ -29,19 +37,20 @@ Questo caso è noto come il \underline{paradosso di Russel}. $ A $ non può esse
 	\item Se $ A \in A $ allora per definizione di $ A $, $ A \not  \in  A $
 	\item Se $ A \not  \in  A $ allora per definizione di $ A $ , $ A \in  A $
 \end{itemize}
-\definizione{Insiemi uguali}{
+\begin{definizione}{Insiemi uguali}
 	Due insiemi sono uguali se e solo se contengono gli stessi elementi. Formalmente
 	\[
 		A = B \Leftrightarrow \left(x \in  A \Leftrightarrow x \in B \; \forall x\right)
 	\]
-}
-\definizione{Insieme vuoto}{
+\end{definizione}
+\begin{definizione}{Insieme vuoto}
 	E' costituito dall'insieme senza alcun elemento e denotato con il simbolo $ \emptyset  $. Formalmente un insieme è vuoto se
 	\[
 		x \not  \in A \; \forall x
 	\]
-}
-\definizione{Insieme contenuto}{
+\end{definizione}
+
+\begin{definizione}{Insieme contenuto}
 	Si dice che $ A $ è \underline{contenuto} in $ B $ ($ A \subseteq B $) se:
 	\[
 		\left(x \in A \Rightarrow x \in B\right) \; \forall x
@@ -50,9 +59,9 @@ Questo caso è noto come il \underline{paradosso di Russel}. $ A $ non può esse
 	\[
 		\left(x \in A \Rightarrow x \in B\right) \; \forall x \text{ e } A \neq B
 	\]
-}
+\end{definizione}
 
-\definizione{Definire degli insiemi}{
+\begin{definizione}{Definire degli insiemi}
 	Abbiamo principalmente due modi di definizre degli insiemi:
 	\begin{itemize}
 		\item  \textit{Proprietà:}   Se $ X $ è un insieme e $ P\left(x\right)  $ è una proprietà esprimibile sull'elemento $ x \in X $ allora il seguente è un insieme:
@@ -64,8 +73,8 @@ Questo caso è noto come il \underline{paradosso di Russel}. $ A $ non può esse
 			      \left\{1,2,3,\ldots ,n\right\}
 		      \]
 	\end{itemize}
-}
-\definizione{Operazioni su insiemi}{
+\end{definizione}
+\begin{definizione}{Operazioni su insiemi}
 	Se $X$ e $Y$ sono insiemi si costruiscono altri insiemi:
 	\begin{itemize}
 		\item \textit{Intersezione} $X \cap Y=\{x \mid x \in X$ e $x \in Y\}$
@@ -81,51 +90,51 @@ Questo caso è noto come il \underline{paradosso di Russel}. $ A $ non può esse
 		\item \textit{Intersezione} $\bigcap_{i \in I} X_i=\left\{x \mid \forall i x \in X_i\right\}$
 		\item \textit{Unione} $\bigcup_{i \in I} X_i=\left\{x \mid \exists i x \in X_i\right\}$
 	\end{itemize}
-}
+\end{definizione}
 \subsection{Relazioni e funzioni fra insiemi}
-\definizione{Relazione}{
+\begin{definizione}{Relazione}
 	Siano $X$ e $Y$ insiemi si dice relazione tra $X$ e $Y$, un sottinsieme $\mathcal{R} \subseteq X \times Y$. Se $\mathcal{R}$ è una relazione si scriverà anche $x \mathcal{R} y$. Una relazione $\operatorname{tra} X$ e se stesso, si dirà anche una \textit{relazione binaria} su $X$.
-}
-\definizione{Funzione parziale}{
-Una relazione $f \subseteq X \times Y$ si dice una \underline{funzione parziale} se per ogni $x \in X$ esiste al più un $y \in Y$ tale che $(x, y) \in f$. In simboli:
-\[
-	\forall x \in X\left((x, y) \in f \mathrm{e}\left(x, y^{\prime}\right) \in f\right) \Longrightarrow y=y^{\prime}
-\]
-Si scriverà $f: X \rightharpoonup Y$ per dire che $f$ è una funzione parziale da $X$ a $Y$ e in tal caso si scriverà anche $y=f(x)$ come sinonimo di $(x, y) \in f$.
-}
+\end{definizione}
+\begin{definizione}{Funzione parziale}
+	Una relazione $f \subseteq X \times Y$ si dice una \underline{funzione parziale} se per ogni $x \in X$ esiste al più un $y \in Y$ tale che $(x, y) \in f$. In simboli:
+	\[
+		\forall x \in X\left((x, y) \in f \mathrm{e}\left(x, y^{\prime}\right) \in f\right) \Longrightarrow y=y^{\prime}
+	\]
+	Si scriverà $f: X \rightharpoonup Y$ per dire che $f$ è una funzione parziale da $X$ a $Y$ e in tal caso si scriverà anche $y=f(x)$ come sinonimo di $(x, y) \in f$.
+\end{definizione}
 
-\definizione{Dominio e immagine}{
+\begin{definizione}{Dominio e immagine}
 	\textit{Dominio:} L'insieme $\{x \in X \mid \exists y \in Y: y=f(x)\}$ è detto il dominio di $f$ e si denota con $\operatorname{dom}(f)$
 	\vskip3mm
 	\textit{Immagine:} L'insieme $\{y \in Y \mid \exists x \in \operatorname{dom}(f): y=f(x)\}$ è detto l'immagine di $f$ e si denota con $\operatorname{im}(f)$.
-}
+\end{definizione}
 
-\definizione{Funzione totale}{
+\begin{definizione}{Funzione totale}
 	Una funzione parziale $f: X \rightarrow Y$ si dice funzione totale o semplicemente funzione se $\operatorname{dom}(f)=X$, in tal caso si scrive
 	\[
 		f: X \rightarrow Y
 	\]
 	Si denota $Y^X$ l'insieme di tutte le funzioni (totali) da $X$ a $Y$, ossia $Y^X=\{f$ : $X \rightarrow Y\}$
-}
-\definizione{Iniettività, surgettività e bigettività}{
+\end{definizione}
+\begin{definizione}{Iniettività, surgettività e bigettività}
 	Una funzione $f: X \rightarrow Y$ si dice:
 	\begin{itemize}
 		\item \textit{iniettiva} se per ogni $x_1, x_2 \in X x_1 \neq x_2 \Rightarrow f\left(x_1\right) \neq f\left(x_2\right)$
 		\item \textit{surgettiva} se per ogni $y \in Y$ esiste $x \in X$ tale che $f(x)=y$
 		\item \textit{bigettiva} se è iniettiva e bigettiva
 	\end{itemize}
-}
-\definizione{Funzione inversa}{
+\end{definizione}
+\begin{definizione}{Funzione inversa}
 	Sia $f: X \rightarrow Y$ una bigezione, allora esiste un'unica funzione $g: Y \rightarrow X$ tale che $f \circ g=\mathrm{id}_Y$ e $g \circ f=\mathrm{id}_X$. Tale funzione si chiama inversa $d i$ $f e$ si denota con $f^{-1}$.
-}
+\end{definizione}
 \subsection{Insiemi euipotenti}
-\definizione{Insiemi equipotenti}{
+\begin{definizione}{Insiemi equipotenti}
 	Siano $ x $ e $ y $ due insiemi. Si dice che $ x $ è \underline{equipotente} a $ Y $ oppure $ X $ ha la \underline{stessa cardinalità} di $ Y $ se
 	\[
 		\exists f: x \to y \text{ t.c. } f \text{ bigezione }
 	\]
 	se due insiemi sono equipotenti si scrive informalmente che $ X ~ Y $
-}
+\end{definizione}
 \label{equipotenza}
 Nota bene, vale che dati tre insiemi $ X, Y $ e $ Z $
 \begin{itemize}
@@ -141,12 +150,12 @@ Cerchiamo di colegare la nozioni che due insiemi \underline{equipotenti} hanno \
 	\item Se $ f $ è \underline{surgettiva} allora ogni elemento dell'insieme d'arrivo viene collegato all'insieme di inizio tramite $ f $
 	\item I due insiemi hanno necessariamente \underline{lo stesso numero di elementi}
 \end{itemize}
-\teorema{Cardinalità e equipotenza}{
+\begin{teorema}{Cardinalità e equipotenza}
 	Dati due insiemi $ X $ e $ Y $, questi sono equipotenti se e solo se la loro cardinalità è la stessa
 	\[
 		X \sim Y \Leftrightarrow \left|X\right|=\left|Y\right|
 	\]
-}
+\end{teorema}
 \section{Costruzione dei numeri naturali}
 \subsection{Assiomi di Peano}
 Affrontiamo l'approccio assiomatico di Peano. Vediamo 4 assiomi:
@@ -178,14 +187,14 @@ Inoltre ho proprietà importanti:
 		            \end{itemize}
 	      \end{itemize}
 \end{itemize}
-\teorema{Principio di induzione di prima forma}{
+\begin{teorema}{Principio di induzione di prima forma}
 	Sia $ \left\{P\left(n\right)_{n \in \N }\right\} $ una famiglia di proposizioni (affermazioni) $ P\left(n\right) $ indicizzata su $  n \in  \N  $ sulla quale valgono le seguenti proprietà:
 	\begin{itemize}
 		\item \textit{(Base dell'induzione)} $ P\left(0\right) $ è vera
 		\item \textit{(Ipotesi induttiva)} $  \forall n \in  \N :\left[P\left(n\right) \Rightarrow P\left(succ\left(n\right)\right)\right] $ ossia se $ P\left(n\right) $ è vera allora anche $ P\left(succ\left(N\right)\right) $ è vera.
 	\end{itemize}
 	Allora $ P\left(n\right) $ è vera $  \forall n \in  \N $
-}
+\end{teorema}
 Dimostrazione:
 \begin{itemize}
 	\item Sia $ A = \left\{n \in  \N | P\left(n\right) \text{ è vera }\right\} $
@@ -196,7 +205,7 @@ Dimostrazione:
 	      \end{itemize}
 \end{itemize}
 Ho quindi esteso la proprietà ad ogni $ n \in  \N  $ per gli assiomi di Peano
-\teorema{Teorema di ricorsione}{
+\begin{teorema}{Teorema di ricorsione}
 	Sia $ X $ un insieme \underline{non vuoto}, sia $ h:\N_{x}X \to X $ una funzione (mappa) e sia $ c \in  X$. $ c $ è detto \underline{dato iniziale}, $ h $ \underline{funzione di iterazione}. Allora $  \exists ! f: \N  \to x  $ tale che:
 	\[
 		\begin{cases}
@@ -204,7 +213,7 @@ Ho quindi esteso la proprietà ad ogni $ n \in  \N  $ per gli assiomi di Peano
 			\forall  n \in  \N \quad f\left(succ\left(n\right)\right) = h\left(n, f\left(n\right)\right) \\
 		\end{cases}
 	\]
-}
+\end{teorema}
 \subsubsection*{Applicazioni del teorema di ricorsione}
 Sia $ m \in  \N  $. Vogliamo formalizzare il concetto di \underline{somma a sinistra con $ m $}.
 \begin{itemize}
@@ -220,18 +229,18 @@ Sia $ m \in  \N  $. Vogliamo formalizzare il concetto di \underline{somma a sini
 \end{itemize}
 \subsection{Ordinamento di un insieme}
 Una volta definiza l'addizione su $ \N  $ si può definire anche l'operatore $ \le  $:
-\definizione{Operatore minore uguale}{
+\begin{definizione}{Operatore minore uguale}
 	Siano $ n,m \in \N  $. Diremo che $ n \le m $ se esiste un $ k $ tale che
 	\[
 		n + k = m
 	\]
-}
+\end{definizione}
 Si può vedere $\leq$ come un sottinsieme di $\mathbb{N} \times \mathbb{N}$ e precisamente
 \[
 	\leq=\{(n, m) \in \mathbb{N} \times \mathbb{N} \mid \exists k \in \mathbb{N}: n+k=m\}
 \]
 E quindi $\leq$ è una relazione (definizione 1.9) sui naturali e quello che abbiamo definito come significato di $n \leq m$ è effettivamente lo stesso che dire $(n, m) \in \leq$.
-\definizione{Ordinamento di un insieme}{
+\begin{definizione}{Ordinamento di un insieme}
 	Sia $ X $ un insieme non vuoto e sia $ \le $ una \underline{relazione binaria}. $ \le $ si dice ordinamento parziale di $ X $ se:
 	\begin{enumerate}
 		\item \textit{Riflessiva} $ x \le x  \;\forall  x \in  X$
@@ -242,16 +251,16 @@ E quindi $\leq$ è una relazione (definizione 1.9) sui naturali e quello che abb
 	\begin{enumerate}\setcounter{enumi}{3}
 		\item \textit{Tricotomia} $  \forall x,y \in X, \left(x \le y\right) $ oppure $ \left(y \le x\right) $
 	\end{enumerate}
-}
+\end{definizione}
 
 Nota che è semplice dimostrare che $ \N  $ è un insieme \underline{parzialmente ordinato}. Tuttavia dimostrare che è un insieme \underline{totalmente ordinato} è un procedimento piuttosto tedioso.
-\teorema{Principio di induzione shiftato di prima forma}{
-Sia $ \left\{P\left(m\right)\right\}_{m \ge k} $ una famiglia di proposizioni (affermazioni) indicizzate seui numeri naturali $ \ge $ di un certo $ k \in  \N  $ fissato. Supponiamo che:
-\begin{itemize}
-	\item \textit{Base induzione} P(k) è vera
-	\item  \textit{Passo induttivo} $  \forall  n \in  \N , n \ge k : \left(p\left(n\right) \Rightarrow P\left(n+1\right)\right) $
-\end{itemize}
-}
+\begin{teorema}{Principio di induzione shiftato di prima forma}
+	Sia $ \left\{P\left(m\right)\right\}_{m \ge k} $ una famiglia di proposizioni (affermazioni) indicizzate seui numeri naturali $ \ge $ di un certo $ k \in  \N  $ fissato. Supponiamo che:
+	\begin{itemize}
+		\item \textit{Base induzione} P(k) è vera
+		\item  \textit{Passo induttivo} $  \forall  n \in  \N , n \ge k : \left(p\left(n\right) \Rightarrow P\left(n+1\right)\right) $
+	\end{itemize}
+\end{teorema}
 \section{Esercizi per induzione}
 \subsubsection*{Esercizio 2}
 Dimostra che
@@ -280,15 +289,15 @@ Per ogni $ n \in  \N  $, indichiamo con $ I_{n} $ il seguente sottoinsieme di $ 
 	I_{n} = \left\{0,1,\ldots , n-1\right\}
 \]
 Inoltre poniamo $ I_0= \emptyset  $
-\definizione{Insieme finito}{
+\begin{definizione}{Insieme finito}
 	Dato un insieme $ X $, diciamo che $ X $ \underline{è finito} se esiste un n tale che $ X $ è \underline{equipotente} a $ I_n $:
 	\[
 		\exists n \in \N \text{ t.c. } X \sim I_n
 	\]
 	se $ X $ non è finito si dice \underline{infinito}
-}
+\end{definizione}
 tuttavia può sorgere il dubbio se $ X $ è equipotente con solo un $ I_n $ oppure con molteplici $ I_n $. Per risolvere questo dubbio serve il \underline{teorema dei cassetti}
-\teorema{Teorema dei cassetti}{
+\begin{teorema}{Teorema dei cassetti}
 	Siano $ X $ e $ Y $ insimemi e siano $ n,m \in  \N  $ tali che:
 	\begin{itemize}
 		\item $ n < m $
@@ -296,7 +305,7 @@ tuttavia può sorgere il dubbio se $ X $ è equipotente con solo un $ I_n $ oppu
 		\item $ Y \sim I_m $
 	\end{itemize}
 	Allora \underline{non} esiste alcuna funzione $ f: y \to x $ \underline{iniettiva} (y ha più elementi)
-}
+\end{teorema}
 \label{teo:cassetti}
 La dimostrazione procede per induzione, indicizzando $ n \in \N  $. L'ipotesi induttiva va fatta sulla $ n $: fissata una $ n $, la $ m $ può essere qualsiasi numero naturale maggiore di $ n $
 \begin{itemize}
@@ -326,45 +335,45 @@ La dimostrazione procede per induzione, indicizzando $ n \in \N  $. L'ipotesi in
 	      \end{itemize}
 \end{itemize}
 Posso rinforzare questa affermazione con il seguente corollario:
-\teorema{Colorrario a teorema dei cassetti}{
+\begin{teorema}{Colorrario a teorema dei cassetti}
 	Siano $ X $ e $ Y $ due insiemi e siano $  n, m \in \N  $ tali che $  x \sim I_n  $ e $ Y \sim I_m $, allora:
 	\[
 		X \sim Y \Leftrightarrow n = m
 	\]
-}
+\end{teorema}
 \textbf{Dimostrazione}
 \begin{itemize}
 	\item $ \Leftrightarrow $Se $ n=m $ allora $ X \sim Y $ per composizione di \underline{bigezioni}
 	\item Se $ X \sim Y $ e $ X \sim I_n, Y \sim I_m $, allora $ I_n \sim I_m $
 	\item Per il lemma dei cassetti, non può esistere una iniezione fra $ I_m $ e $ I_n $ se $ n \neq m $. Quindi se esiste una bigezione fra questi, devono avere lo stesso numero di elementi
 \end{itemize}
-\definizione{Cardinalità}{
+\begin{definizione}{Cardinalità}
 	Dato un insieme finito $ X $ si dice che la cardinalità di $ X $ è $ n $ se
 	\[
 		X \sim I_n
 	\]
 	si dice informalmente che $ \left|X\right|= n$, anche se il valore assoluto indicherebbe l'insieme cardinale. $ \left|X\right| = I_n $  sarebbe la notazione corretta
-}
-\teorema{}{
+\end{definizione}
+\begin{teorema}{}
 	Sia $ X $ un insieme finito e sia $ Y $ un suo sottoinsieme. Allora
 	\[
 		Y \text{ è un insieme \underline{finito} e } \left|Y\right| \le \left|X\right|
 	\]
 	Inoltre se $ Y \subset X $ allora $ \left|Y\right| < \left|X\right| $
-}
+\end{teorema}
 \subsubsection*{Dimostrazione}Procedo per induzione indicizzando la cardinalità di $ X $.
 \begin{itemize}
 	\item  Per $ \left|X\right| = 0 $ è verificata in quanto $ \left|X\right| = I_0 = \emptyset $. L'unico sottoinsieme del vuoto è il vuoto e ha cardinalità 0
 	\item Come in dimostrazione del teorema dei cassetti (\textit{teo \ref{teo:cassetti}})
 \end{itemize}
 Questo teorema ha un risvolto importantissimo, ossia che $ \N  $ è un insieme infinito.
-\definizione{Buon ordinamento}{
+\begin{definizione}{Buon ordinamento}
 	Sia $ X $ un insieme e sia $ \le  $ un ordinamento totale su $ X $. Se ogni sottoinsieme non vuoto $ A $ di $ X $ ammette minimo (rispetto al $ \le  $), allora $ \le  $ si dice \underline{buon ordinamento su $ X $}. In questo $ \left(X, \le \right) $ si dice \underline{insieme ben ordinato}
-}
+\end{definizione}
 La caratteristica importante di un insieme ben ordinato è che vale su di esso un principio di induzione fortissimo: il principio di induzione di seconda forma.
-\teorema{Buon ordinamento dei numeri naturali}{
+\begin{teorema}{Buon ordinamento dei numeri naturali}
 	L'insieme dei numeri naturali dotato dell'ordinamento $ \le  $ standard, ovvero la coppia $ \left(\N , \le \right) $, è \underline{ben ordinato}
-}
+\end{teorema}
 \subsubsection*{Dimostrazionie}
 Sia $  A $ un sottoinsiieme di $ \N  $ \underline{senza minimo}. Dobbiamo provare che $ A = \emptyset  $
 \begin{itemize}
@@ -377,7 +386,7 @@ Sia $  A $ un sottoinsiieme di $ \N  $ \underline{senza minimo}. Dobbiamo provar
 \end{itemize}
 \hypertarget{diveuclidea}{\subsection{La divisione euclidea} }
 Assumiamo la conoscenza dell'insieme $ \Z = \left\{\ldots -2,-1, 0 ,1,2,\ldots ,n,\ldots \right\} $
-\teorema{Esistenza ed unicità della divisione euclidea}{
+\begin{teorema}{Esistenza ed unicità della divisione euclidea}
 	Siano $ n $ ed $ m $ tale che $ m \neq 0$. Allora esistono e sono \underline{unici} due interi $ q, r \in \Z $ tali che
 	\[
 		\begin{cases}
@@ -386,7 +395,7 @@ Assumiamo la conoscenza dell'insieme $ \Z = \left\{\ldots -2,-1, 0 ,1,2,\ldots ,
 		\end{cases}
 	\]
 	inoltre se $ n, m \in \N  $, $ m > 0 $ allora $ q,r \in  \N  $
-}\label{divisioneeuclidea}
+\end{teorema}\label{divisioneeuclidea}
 \subsubsection*{Dimostrazione esistenza}
 Fisso come parametro $ m > 0$ e procediamo con il principio di induzione di seconda forma, usando come ipotesi induttiva che
 \[
@@ -464,7 +473,7 @@ visto che la differenza di resti deve necessariamente essere $ < \left|m\right| 
 ma visto che $ \left|q - q'\right|< 1 $ e $ q $ e $ q' $ sono per def \underline{numeri interi}, allora $ q- q' =0$, ossia \underline{$ q = q' $}
 
 \subsection{Scrittura dei numeri naturali in base maggiore di 2}
-\definizione{Rappresentazione numeri naturali}{
+\begin{definizione}{Rappresentazione numeri naturali}
 	Sia $  b \in  \N  $. Diremo che un numero naturale $ n \in  \N  $ è \underline{rappresentabile in base $ b $} se esistono $ k \in  \N  $ $ \varepsilon_0, \varepsilon_1,\ldots , \varepsilon_k $ tali che :
 	\begin{itemize}
 		\item $ \varepsilon_0, \varepsilon_1,\ldots , \varepsilon_k  \in  I_b $, dove $ I_b = \emptyset  $ se $ b = 0 $, $ I_b = \left\{0,1,\ldots ,b-1\right\} \text{ se } b \ge 1$
@@ -474,7 +483,7 @@ ma visto che $ \left|q - q'\right|< 1 $ e $ q $ e $ q' $ sono per def \underline
 	\[
 		n = \left(\varepsilon_0,\ldots ,\varepsilon _k\right)_b
 	\]
-}
+\end{definizione}
 \label{rappnumnat}
 Nota che
 \begin{itemize}
@@ -488,10 +497,10 @@ Nota che
 	      \]
 \end{itemize}
 \hypertarget{teorappnum}{}
-\teorema{Rappresentabilità dei naturali in base $ b $}{
-Sia $ b \ge 2 $. Allora per ogni $ n \in  \N  $ esiste una succesione $ \left\{\varepsilon _i\right\}_{i \in  \N } $ tale che soddisfi le proprietà enunciate in \ref{rappnumnat}
-tale espressione è inoltre \underline{unica}
-}
+\begin{teorema}{Rappresentabilità dei naturali in base $ b $}
+	Sia $ b \ge 2 $. Allora per ogni $ n \in  \N  $ esiste una succesione $ \left\{\varepsilon _i\right\}_{i \in  \N } $ tale che soddisfi le proprietà enunciate in \ref{rappnumnat}
+	tale espressione è inoltre \underline{unica}
+\end{teorema}
 \subsubsection*{Dimosrazione esistenza}
 Procedo per induzione su $ n $:
 \begin{itemize}
@@ -539,13 +548,13 @@ Procedo per induzione su $ n $.
 	      \end{itemize}
 \end{itemize}
 \section{Divisibilità}
-\definizione{Divisibilità}{
+\begin{definizione}{Divisibilità}
 	Siano $ n,m \in  \Z  $. Diciamo che \underline{$ n $ divide $ m $} e scriveremo $ n|m $ se
 	\[
 		\exists k \in  \Z \text{ t.c. } nk = m
 	\]
 	Se ciò è falso si dice che $ n $ non divivde $ m $ e si scrive $ n \not | m $
-}
+\end{definizione}
 \begin{minipage}[t]{0.48\textwidth}
 	Nota che valgono le seguenti proprietà:
 	\begin{itemize}
@@ -566,23 +575,23 @@ Procedo per induzione su $ n $.
 		\item $ n|m \text{ e } m | n \Rightarrow  n = m \text{ oppure } n = -m $
 	\end{itemize}
 \end{minipage}
-\definizione{Massimo comune divisore}{
+\begin{definizione}{Massimo comune divisore}
 	Siano $ n , m \in  \Z  $ \underline{non entrambi nulli}. Si dice che un numero $ d \in  \Z  $ è un \underline{massimo comune divisore}(M.C.D) tra $ m $ e $ n $ se
 	\begin{itemize}
 		\item $ d > 0 $
 		\item $ d|n $ e $ d|m $
 		\item Se $ c \in \Z  $ è tale che $ c|n $ e $ c|m $, allora $ c|d $
 	\end{itemize}
-}
+\end{definizione}
 Come mai non possono essere entrambi nulli? In quanto la famiglia dei divisori di entrambi i numeri sarebbe tutto $ \Z  $ (ogni numero divide 0)
 \hypertarget{teomcd}{}
-\teorema{Esistenza ed unicità M.C.D}{
+\begin{teorema}{Esistenza ed unicità M.C.D}
 	Siano $ n, m \in \Z  $ non entrambi nulli. Allora
 	\[
 		\exists! \left(n,m\right)
 	\]
 	ossia \underline{esiste ed è unico} l'M.C.D. fra $ n $ e $ m $
-}
+\end{teorema}
 \subsubsection*{Dimostrazione esitenza}
 Definiamo innanzitutto il seguente insieme $ S $ si $ \N  $:
 \[
@@ -629,17 +638,17 @@ Analogamente si dimostra che $ d | m $
 \subsubsection*{Dimostrazione unicità}
 Per definizione un numero è M.C.D. fra $ m,n $ se è divisibile per ogni divisore comune a $ n,m $
 \begin{itemize}
-    \item Siano $ d, d' $ due M.C.M. di $ n,m $
-    \item Visto che $ d|n, d|m $, allora è un divisore comune, quindi $ d|d' $
-      \item Al contrario, visto che $ d'|n, d'|m $, allora è un divisore comune, quindi $ d'|d $
+	\item Siano $ d, d' $ due M.C.M. di $ n,m $
+	\item Visto che $ d|n, d|m $, allora è un divisore comune, quindi $ d|d' $
+	\item Al contrario, visto che $ d'|n, d'|m $, allora è un divisore comune, quindi $ d'|d $
 \end{itemize}
 Visto che $ d'|d $ e $ d | d' $ allora $ d = \pm d' $. Per definizione, il massimo comune divisore deve essere un intero positivo, quindi da questo deriva l'unicità
-\teorema{Lemma utile}{
+\begin{teorema}{Lemma utile}
 	Siano $ c,n,m \in  \Z  \text{ t.c. } c | n \text{ e } c | m  $. Per ogni $  x , y \in  \Z  $ si ha:
 	\[
 		c \vert (xn + ym)
 	\]
-}
+\end{teorema}
 \subsection{Criterio d'arresto}
 L'M.C.D gode delle seguenti proprietà:
 \begin{itemize}
@@ -660,11 +669,11 @@ L'M.C.D gode delle seguenti proprietà:
 		      \left(n,0\right) = \left|n\right|
 	      \]
 \end{itemize}
-\definizione{Coprimi}{
+\begin{definizione}{Coprimi}
 	Siano $ n,m \in \Z  $ non entrambi nulli. Diciamo che $ n $ ed $ m $ sono \underline{coprimi} se \[
 		\left(n,m\right) = 1
 	\]
-}
+\end{definizione}
 \subsection{Algoritmo di euclide per il calcolo dell'M.C.D.}
 Ricordiamo le 3 seguenti proprietà:
 \begin{itemize}
@@ -680,18 +689,18 @@ L'algoritmo procede dunque nel seguente modo:
 \end{itemize}
 \begin{table}[h!]
 	\centering
-	\begin{tabular}{|c c|}
-		\hline
-		M.C.D.                          & divisori \\
-		\hline
-		$ \left(n,m\right) $            & m        \\
-		$ \left(m, r_1\right) $         & $ r_1 $  \\
-		$ r_1, r_2 $                    & $ r_2 $  \\
-		$ \vdots $                      & \vdots   \\
-		$ \left(r_{k-1}, r_{k}\right) $ & $ r_k $  \\
-		$ \left(r_k, 0\right) $         & $ 0 $    \\
-		$ r_k $                         & /        \\
-		\hline
+	\begin{tabular}{c c}
+		\toprule
+		\sfblue{M.C.D.}                 & \sfblue{divisori} \\
+		\midrule
+		$ \left(n,m\right) $            & m                 \\
+		$ \left(m, r_1\right) $         & $ r_1 $           \\
+		$ r_1, r_2 $                    & $ r_2 $           \\
+		$ \vdots $                      & \vdots            \\
+		$ \left(r_{k-1}, r_{k}\right) $ & $ r_k $           \\
+		$ \left(r_k, 0\right) $         & $ 0 $             \\
+		$ r_k $                         & /                 \\
+		\bottomrule
 	\end{tabular}
 \end{table}
 \subsubsection*{Esempio}
@@ -733,13 +742,13 @@ raccogliendo poi i 28 e i 48 ottengo chiaramente l'M.C.D. come combinazione line
 \[
 	4 = 3 \cdot 48 - 2 \cdot 28
 \]
-\teorema{Implicazioni numeri coprimi}{
+\begin{teorema}{Implicazioni numeri coprimi}
 	Siano $ n,m \in \Z $ numeri entrambi non nulli e sia $ q \in  \Z  $. Supponiamo che $ \left(n,m\right) =1$ (ossia $ n,m $ sono comprimi), allora vale che:
 	\begin{itemize}
 		\item $ n | mq \Rightarrow n | q $ \\
 		\item $ n|q $ e $ m | q $ allora $ nm | q $
 	\end{itemize}
-}
+\end{teorema}
 \label{numericoprimi}
 \textbf{Dimostrazione 1}
 \begin{itemize}
@@ -758,15 +767,15 @@ raccogliendo poi i 28 e i 48 ottengo chiaramente l'M.C.D. come combinazione line
 	      \]
 	      ossia che $ q $ \underline{è divisibile} per $ n $
 \end{itemize}
-\definizione{Numero primo}{
+\begin{definizione}{Numero primo}
 	Un numero intero $ p \in \Z  $ è detto \underline{primo} se $ p \ge 2 $ e i suoi divisori sono tutti e soli quelli \underline{banali} cioè $ \pm1 $ e $ \pm p $
-}
-\teorema{Corollario su numeri primi}{
+\end{definizione}
+\begin{teorema}{Corollario su numeri primi}
 	Sia $ p \in \Z  \text{ t.c. } p \ge 2$. Allora $ p $ è \underline{numero primo} se e solo se possiede la segunete proprietà (detta \textit{primalità})
 	\[
 		\forall  n,m \in \Z : \left(p | nm \Rightarrow p|n \text{ oppure } p | m\right)
 	\]
-}
+\end{teorema}
 Ciò risulta evidente se pensi al fatto che se $ p $ è primo e $ p | nm $ allora necessariamente questo deve comparire nella fattorizzazione in fattori primi da qualche parte. Questo non è necessariamente vero se $ p $ non è primo. Basti pensare a $ n = 2, m = 6 $
 \subsubsection*{Dimostrazione}
 Ho due casi:
@@ -785,22 +794,22 @@ Ho due casi:
 \begin{center}
 	%\includegraphics[width = \textwidth]{Images/Bossetti.jpg }
 \end{center}
-\definizione{Minimo comune multiplo}{
+\begin{definizione}{Minimo comune multiplo}
 	Siano $ n,m \in  \Z  $. Un numero intero $ M \ge  0$ è un m.c.m. tra $ n $ e $ m $ se
 	\begin{itemize}
 		\item $ n | M $ e $ m | m $
 		\item Se $  c \in \Z  \text{ t.c. }  n | c $ e $  m | c $ allora $ M | c $
 	\end{itemize}
 	Indicheremo l'm.c.m. fra $ n $ ed $ m $ con le parentesi quadre: $ \left[n,m\right] $
-}
+\end{definizione}
 \hypertarget{teomcm}{}
-\teorema{Unicità m.c.m.}{
+\begin{teorema}{Unicità m.c.m.}
 	Siano $ n, m \in \Z  $. Supponiamo che $ M, M' \in \Z $ siano m.c.m.  fra $ n $ e $ m $. Allora
 	\[
 		M = M'
 	\]
-}
-\teorema{M.C.D. e m.c.m.}{
+\end{teorema}
+\begin{teorema}{M.C.D. e m.c.m.}
 	Siano $ n,m \in  \Z  $. Allora esiste ed e unico $ \left[n,m\right] $ e vede:
 	\begin{itemize}
 		\item $ n = m = 0, \left[n,m\right] = 0 $
@@ -809,7 +818,7 @@ Ho due casi:
 			      \left[n,m\right] = \frac{nm}{\left(n,m\right)}
 		      \]
 	\end{itemize}
-}
+\end{teorema}
 \subsubsection*{Dimostrazione esistenza e unicità m.c.m.}
 Partiamo ponendo
 \[
@@ -844,7 +853,7 @@ Devo ora dimostrare che per ogni $ c $ tale che $ n|c, m|c $ allora $ M|c $
 Poiché nella dimostrazione è stato posto $ M = \frac{nm}{\left(n,m\right)} $ e abbiamo dimostrato che l'M.C.D. è \underline{unico}, anche $ M $ è conseguentemente unico
 \hypertarget{teofondamentalearitmetica}{\section{Teorema fondamentale dell'aritmetica}}
 All'interno di questo teorema si nasconde la ragione della sicurezza della \underline{crittografia rsa}
-\teorema{Teorema fondamentale dell'aritmetica}{
+\begin{teorema}{Teorema fondamentale dell'aritmetica}
 	Ogni numero \underline{naturale} $ n \ge 2 $ può essere \underline{fattorizzato} in \underline{numero primi}, ovvero può essere scritto come prodotto di numeri primi eventualmente ripetuti:
 	\[
 		n = p_1 p_2 \ldots p_a, \quad \text{ dove } p_i \text{ sono primi }
@@ -860,7 +869,7 @@ All'interno di questo teorema si nasconde la ragione della sicurezza della \unde
 		\Rightarrow  \exists  \text{ una bigezione }f : \left\{1,\ldots , b\right\} \to \left\{1,\ldots , a\right\}
 	\]
 	ossia una scrittura è semplicemente \underline{una permutazione} dell'altra
-}
+\end{teorema}
 \label{teoremafondamentalearitmetica}
 \subsubsection*{Dimostrazione esistenza}
 Procediamo per induzione \underline{di seconda forma} shiftata in 2 (dobbiamo dimostrarlo $ \forall n \ge 2 $). Indico con $ P\left(n\right) $ la proposizione \textit{"il numero $ n $ si può scrivere come prodotto di numeri primi eventualmente ripetuti"}
@@ -918,9 +927,9 @@ procediamo per induzione di prima forma su $ a \ge 1 $. L'ipotesi induttiva sar�
 	      \]
 	      e inorltre ho dimostrato che $ p_a = p_j $
 \end{itemize}
-\teorema{Corollario}{
+\begin{teorema}{Corollario}
 	L'insieme dei numeri primi è \underline{infinito}
-}
+\end{teorema}
 \subsubsection*{Dimostrazione}
 Supponiamo che esistano solamente un nummero \underline{finito} di primi
 \[
@@ -941,13 +950,13 @@ dimostriamo che è impossibile che di punto in bianco i numeri primi cessino di 
 \end{itemize}
 \section{Classi d'equivalenza e moduli}
 Iniziamo qui a parlare di aritmetica modulare. Innanzitutto diamo la definizione di conguità:
-\definizione{Congruenza}{
+\begin{definizione}{Congruenza}
 	Siano $ a,b \in  \Z  $. Si dice che $ a $ \underline{è congruo} a $ b $ modulo $ n $ se
 	\[
 		n|a-b
 	\]
 	In simboli si scrive che $ a \equiv b \quad \operatorname{mod}n $
-}
+\end{definizione}
 \label{congruenza}
 Nota che questa affermazione equivale a dire che $ a,b $ divisi per $ n $ danno \underline{lo stesso resto}. Valgono quindi le seguenti proprietà:
 \begin{itemize}
@@ -958,29 +967,29 @@ Nota che questa affermazione equivale a dire che $ a,b $ divisi per $ n $ danno 
 Le proprietà risultano evidenti se si pensa alla congruenza in modulo $ n $ come il fatto che $ a $ e $ b $ danno lo stesso resto divisi per $ n $
 \vskip3mm
 La relazione di congruenza è detta \underline{d'equivalenza} in quanto è riflessiva, simmetrica e transitiva:
-\definizione{Relazione d'equivalenza}{
+\begin{definizione}{Relazione d'equivalenza}
 	Una relazioe $ \mathcal{R} $ su $ X $ si dice \underline{d'equipotenza} se:
 	\begin{itemize}
 		\item E' \textit{riflessiva} ossia $ \forall  x \in X \quad x \mathcal{R}x $
 		\item E' \textit{simmetrica} ossia $ \forall  x,y \in X \quad x\mathcal{R}y \Rightarrow y \mathcal{R}x $
 		\item E' \textit{transitiva} ossia $ \forall  x,y,z \in X \quad x\mathcal{R}y  \text{ e } y \mathcal{R} z  \Rightarrow x\mathcal{R}z  $
 	\end{itemize}
-}
+\end{definizione}
 Data una relazione di equivalenza e un insieme, si può creare una classe contenente tutti gli elementi che soddisfano tale relazione. Tale classe è detta \underline{classe di equivalenza}.
-\definizione{Classe d'equivalenza}{
+\begin{definizione}{Classe d'equivalenza}
 	Siano $ X  $ un insieme, $ \sim  $ una relazione d'equivalenza su $ X $ e $ x \in X $. Si chiama \underline{Classe d'equivalenza} di $ x $ in $ X $ rispetto a $ \sim  $, l'insieme:
 	\[
 		\left[x\right]_{\sim }  \left\{y \in X | y \sim x \right\}
 	\]
 	ossia l'insieme costituito da tutti gli elementi di $ X $ che soddisfano $ x \sim y $
-}
-\definizione{Insieme quoziente}{
+\end{definizione}
+\begin{definizione}{Insieme quoziente}
 	Siano $ X  $ un insieme e $ \sim  $ una relazione di equivalenza su $ X $.
 	L'insieme costituito da tutte le classi d'equivalenza si chiama \underline{insieme quoziente di $ X $ modulo $ \sim  $} e si denota con il simobolo $ X / \sim  $:
 	\[
 		X / \sim  = \left\{ \left[x\right]_{\sim } x \in  X\right\}
 	\]
-}
+\end{definizione}
 Ci sono tre importanti proprietà delle classi d'equivalenza:
 \begin{itemize}
 	\item Una classe di eqiuvalenza $ [x] $ contiene sempre $ x $ stesso $ \forall  x \in  X \quad x \in  \left[x\right] $
@@ -1006,7 +1015,7 @@ Pensa che :
 \end{itemize}
 \subsection{Classi di congruenza}
 Una classi di congruenza su $ \Z  $ è un insieme contenente tutti i numeri interi che danno lo stesso resto divisi per $ n $.
-\definizione{Classe di congruenza}{
+\begin{definizione}{Classe di congruenza}
 	Siano $ a,n \in  \Z  $. Si chiama \underline{classe di congruenza} di $ a $ modulo $ n $ l'insieme dato da:
 	\[
 		\left[a\right]_n = \left\{ x \in  \Z  | x \equiv a \mod n\right\}
@@ -1015,7 +1024,7 @@ Una classi di congruenza su $ \Z  $ è un insieme contenente tutti i numeri inte
 	\[
 		\Z / n \Z = \left\{ \left[a\right] _n | a \in  \Z \right\}
 	\]
-}
+\end{definizione}
 Per visualizzare una \textit{classe di congruenza} si può usare un metodo efficace per costruirne una:
 \begin{itemize}
 	\item Prendi l'asse dei numeri interi $ \Z  $
@@ -1064,12 +1073,12 @@ Valgono di conseguenza le tre proprietà già enunciate e dimostrate:
 \end{itemize}
 \subsection{Numero classi congruenza}
 Innanzitutto va esplicitata una proposizione intuitiva:
-\teorema{Resto classi di congruenza }{
+\begin{teorema}{Resto classi di congruenza }
 	Se $ n > 0 $ e $ r  $è il resto della divisione euclidea di $ a $ per $ n $ allora.
 	\[
 		a \equiv r \mod  n
 	\]
-}
+\end{teorema}
 Ciò è molto importante quando si parla di classi di equivalenza: se $ r = \text{ resto}\left(a / n\right) $ allora
 \[
 	\left[a\right]_n = \left[r\right]_n
@@ -1091,7 +1100,7 @@ Formalmente, ciò si dimostra nel modo seguente:
 \end{itemize}
 \subsection{Somma e prodotto di classi di congruenza}
 E' possibile definire somma e prodotto di classi di congruenza: questo ci è estremamente utile in quanto possiamo eseguire operazioni in $ \Z / n \Z  $, il quale è un insieme limitato.
-\definizione{Somma e prodotto di classi di congruenza}{
+\begin{definizione}{Somma e prodotto di classi di congruenza}
 	\begin{itemize}
 		\item La \textit{somma} è così definita:
 		      \[
@@ -1102,7 +1111,7 @@ E' possibile definire somma e prodotto di classi di congruenza: questo ci è est
 			      \left[a\right]_n \left[b\right]_n = \left[ab\right]_n
 		      \]
 	\end{itemize}
-}
+\end{definizione}
 Questo ha senso in quanto permette di operare con numeri $ <n $. Questa definizione equivale con le seguenti proprietà:
 \begin{itemize}
 	\item $ a \mod n + b \mod  n = \left(a+b\right) \mod  n $
@@ -1135,7 +1144,7 @@ L'esercizio precedente, mostra che le operazioni tra classi di congruenza godono
 	\underbrace{1+1+\cdots+1}_{n \text {-volte }}=0 \text { in } \mathbb{Z} / n \mathbb{Z}
 \]
 \hypertarget{teoremacinesedelresto}{\subsection{Teorema cinese del resto}}
-\teorema{Teorema cinese del resto}{
+\begin{teorema}{Teorema cinese del resto}
 	Siano $  n,m > 0 $ e siano $  a,b  \in  \Z  $ . Consideriano:
 	\[
 		\begin{cases}
@@ -1164,7 +1173,7 @@ L'esercizio precedente, mostra che le operazioni tra classi di congruenza godono
 			      S = \left[c\right]_{\left[n,m\right]} \rightarrow c + k\left[n,m\right]
 		      \]
 	\end{itemize}
-}
+\end{teorema}
 \subsubsection*{Dimostrazione condizione affinchè esistano soluzioni}
 \begin{itemize}
 	\item \textbf{Dimostrazione $ \Leftarrow $}
@@ -1383,15 +1392,15 @@ allora
 	S = \left[c\right] _{\left[77,56\right]} = \left[-1122\right]_{616} = \left\{-1122 + k \cdot 616 | k \in  \Z \right\}
 \]
 \section{Inversi modulari}
-\definizione{Inverso modulare}{
+\begin{definizione}{Inverso modulare}
 	Sia $  x \in  \Z  $. Diremo che $ a  $ è \underline{invertibile} \textit{modulo n} se esiste un $ x \in  \Z $ tale che $ ax \equiv 1 \mod n $. $ x $ è detto \underline{inverso} di $ a $ \textit{modulo $ n $}
-}
-\teorema{Condizione invertibilità modulare}{
+\end{definizione}
+\begin{teorema}{Condizione invertibilità modulare}
 	$ a $ è \underline{invertibile} \textit{modulo n} se e solo se:
 	\[
 		\left(a,n\right) = 1
 	\]
-}
+\end{teorema}
 \hypertarget{propimportante}{Una} proprietà importante dei numero invertibili modulo $ n $ è la seguente. Se $ u $ è invertibile, allora
 \[
 	ux = uy \Leftrightarrow x = y
@@ -1425,12 +1434,12 @@ Nota che questo non è necessariamente vero se $ u $ non è primo:
 		      \item Per teorema \ref{}, $ \left(a,b\right) = 1 \Leftrightarrow 1 = xa + yb$
 	      \end{itemize}
 \end{itemize}
-\teorema{Unicità inverso modulare}{
-Siano $ x,y $ due \underline{inversi} di $ a \mod n $, allora $ x = y \mod n$. La classe che costituisce l'insieme degli inversi modulari verrà denotata con
-\[
-	\left[a\right]_n ^{ -1}
-\]
-}
+\begin{teorema}{Unicità inverso modulare}
+	Siano $ x,y $ due \underline{inversi} di $ a \mod n $, allora $ x = y \mod n$. La classe che costituisce l'insieme degli inversi modulari verrà denotata con
+	\[
+		\left[a\right]_n ^{ -1}
+	\]
+\end{teorema}
 NB: più che l'unicità, questo teorema sancisce il fatto che gli inversi modulo $ n $ costituiscano una \underline{classe di congruenza}
 \subsubsection*{Dimostrazione}
 \begin{itemize}
@@ -1442,7 +1451,7 @@ NB: più che l'unicità, questo teorema sancisce il fatto che gli inversi modulo
 \end{itemize}
 \subsection{Sistemi lineari}
 Possiamo "generalizzare" quanto affermato per gli inversi modulari, tramite il segtuente teorema:
-\teorema{Sistemi lineari modulari}{
+\begin{teorema}{Sistemi lineari modulari}
 	Siano $ a,b \in  \Z $, allora esiste un intero $ x $ tale che:
 	\[
 		ax \equiv b \mod  n
@@ -1451,7 +1460,7 @@ Possiamo "generalizzare" quanto affermato per gli inversi modulari, tramite il s
 	\[
 		\left[x_0\right]_{n'} = \left\{ x 0 + kn'| k \in  \Z \right\} \quad \text{ con } n' = \frac{n}{\left(a,n\right)}
 	\]
-}\label{Sistemi lineari}
+\end{teorema}\label{Sistemi lineari}
 \subsubsection*{Dimostrazione}
 \begin{itemize}
 	\item $ \Rightarrow  $
@@ -1584,15 +1593,15 @@ Calcola $ \left[8\right]_{35}^{-1} $
 	      quindi l'inverso modulare di 8 in modulo 35 è $ -13 $
 \end{itemize}
 \subsection{Classi invertibili}
-\definizione{Insiemi classi invertibili}{
-Dato $  n \in  \N > 0 $ indichiamo con $ (\Z  /_{n \Z }) ^{*} $ l'insieme di tutti gli interi modulo $ n $, cioè $  \left[a\right] _{n} \in  \Z /_{n \Z } $ che siano invertibili in $ \Z /_{n \Z } $
-}
-\teorema{Classi invertibili modulo numero primo}{
-Se $  p $ è un numero \underline{primo}, allora l'insieme delle classi invertibili modulo $ p $ è costituito da tutte le classi modulo $ p $, tranne $ \left[0\right]_p $:
-\[
-	\left(\Z /_{p \Z }\right) ^{ * } = \Z /_{p \Z } \setminus \left\{\left[0\right]_p\right\}
-\]
-}
+\begin{definizione}{Insiemi classi invertibili}
+	Dato $  n \in  \N > 0 $ indichiamo con $ (\Z  /_{n \Z }) ^{*} $ l'insieme di tutti gli interi modulo $ n $, cioè $  \left[a\right] _{n} \in  \Z /_{n \Z } $ che siano invertibili in $ \Z /_{n \Z } $
+\end{definizione}
+\begin{teorema}{Classi invertibili modulo numero primo}
+	Se $  p $ è un numero \underline{primo}, allora l'insieme delle classi invertibili modulo $ p $ è costituito da tutte le classi modulo $ p $, tranne $ \left[0\right]_p $:
+	\[
+		\left(\Z /_{p \Z }\right) ^{ * } = \Z /_{p \Z } \setminus \left\{\left[0\right]_p\right\}
+	\]
+\end{teorema}
 \begin{itemize}
 	\item $ \left[0\right]_{p} \not \in \left(\Z /_{p \Z }\right) $ in quanto non può esistere un $ x \in \Z  $ tale che :
 	      \[
@@ -1604,21 +1613,21 @@ Se $  p $ è un numero \underline{primo}, allora l'insieme delle classi invertib
 		      \item $ p $ \underline{è primo}
 	      \end{itemize}
 \end{itemize}
-\teorema{Invertibilità prodotto}{
-Siano $ u,v \in  \Z/_{n\Z}  $  allora $ uv \in  \Z/_{n\Z}   $
-}
+\begin{teorema}{Invertibilità prodotto}
+	Siano $ u,v \in  \Z/_{n\Z}  $  allora $ uv \in  \Z/_{n\Z}   $
+\end{teorema}
 \hypertarget{prodbigettivo}{Un}'importantissima conseguenza di questo teorema è il fatto che la funzione $ L_u : \Z/_{n\Z}^{*}  \to  \Z/_{n\Z}^{*}  $ che manda $ x \in  \Z/_{n\Z} ^{*} $ in $ u x $ è una \underline{bigezione}.
 \begin{itemize}
 	\item $ u $ è invertibile in quanto $ u \in  \Z/_{n\Z} ^{ * } $
 	\item $ L_u \left(x_1\right) = L_u \left(x_2\right)  $ significa che $ u x_1 = u x_2 $. Visto che $ u $ è invertibile, questo è vero se e solo se $ x_1 = x_2 $ vedi \hyperlink{propimportante}{questa proprietà}
 \end{itemize}
-\definizione{Phi di eulero}{
+\begin{definizione}{Phi di eulero}
 	Detiniamo la funzione $ \phi  : \N  \setminus  \left\{ 0\right\} \to  \N  $, detta \textit{"phi" di Eulero},
 	\[
 		\phi  \left(n\right): = \left|\left\{a \in  \Z  | 1 \le  a \le  n, \left(a,n\right) = 1\right\}\right|
 	\]
 	ossia il numero di numeri comprimi con $ n $ compresi fra $ 1  $ e $ n $
-}
+\end{definizione}
 \subsubsection*{Proprietà 1}
 \begin{itemize}
 	\item $ \phi \left(1\right) = \left|\left\{1\right\}\right| = 1 $
@@ -1650,9 +1659,9 @@ tale proprietà si dimostra con il teorema cinese del resto in modo molto elegan
 	                        & = p^{m} - p^{m-1}
 \end{align*}
 \hypertarget{fermateulero}{}
-\teorema{Teorema di Fermat-Eulero}{
-Sia $ u \in  \Z/_{n\Z} ^{*} $, allora $ u ^{ \phi \left(n\right)} = 1  $ (in $ \Z/_{n\Z}  $)
-}\label{Potenza di phi}
+\begin{teorema}{Teorema di Fermat-Eulero}
+	Sia $ u \in  \Z/_{n\Z} ^{*} $, allora $ u ^{ \phi \left(n\right)} = 1  $ (in $ \Z/_{n\Z}  $)
+\end{teorema}\label{Potenza di phi}
 \subsubsection*{Dimostrazione}
 Come enunciato \hyperlink{prodbigettivo}{qui}, la funzione $ L_u\left(x\right) = ux $ è una bigezione. Dunque procedo così
 \begin{itemize}
@@ -1664,12 +1673,12 @@ Come enunciato \hyperlink{prodbigettivo}{qui}, la funzione $ L_u\left(x\right) =
 	\item $ u^{k} = 1 $ per soddifare l'eguaglianza. Tuttavia vale anche che $ u^{k} = u^{ \phi  \left(n\right)} $ in quanto $ \phi \left(n\right) = \left|\Z/_{n\Z} ^{*}\right| $
 \end{itemize}
 \textbox{Nota che se $ p $ è primo, allora $ x^{p-1} = x^{ \phi \left(p\right)}= 1 $ in $ \Z/_{p\Z}  $, in quanto $ \phi \left(p\right) = p-1 $ (\textit{tutti} i numeri minori di $ p $ sono comprimi con $ p $ se $ p $ è primo)}
-\teorema{Phi di eulero numeri comprimi}{
+\begin{teorema}{Phi di eulero numeri comprimi}
 	La \textit{phi di Eulero} è \underline{moltiplicativa} solo per coppie di numeri \underline{comprimi}:
 	\[
 		\phi \left(ab\right) = \phi \left(a\right) \phi \left(b\right) \Leftrightarrow a,b\text{ comprimi }
 	\]
-}
+\end{teorema}
 \subsubsection*{Osservazine 2}
 Calcoliamo $ \phi \left(p^{m}\right) $ dove $ p $ è un numero primo:
 \begin{itemize}
@@ -1681,23 +1690,23 @@ Calcoliamo $ \phi \left(p^{m}\right) $ dove $ p $ è un numero primo:
 	\item Per questa ragione posso calcolare la phi di Eulero nel seguente modo:
 	      i
 \end{itemize}
-\teorema{Formula generale calcolo $ \phi $ di eulero}{
-Sia $  n \ge 2 $. Se $ n = p_1 ^{ m_1} p_2 ^{ m_2} , \ldots , p_k^{m_k} $ dove $ p_1, p_2,\ldots ,p_k $ sono \underline{comprimi a due a due} e $ m_1,\ldots ,m_k > 0 $ allora
-\begin{align*}
-	\phi \left(n\right) & =  \phi \left(p_1 ^{ m_1} p_2 ^{ m_2} , \ldots , p_k^{m_k}\right) = \phi \left(p_1^{m_1} \right) \phi  \left(p_2^{m_2}\right)\ldots \phi \left(p_k^{m_k}\right) \\
-	                    & = \left(p_1^{m_1} - p_1^{m_1-1}\right) \left(p_2^{m_2}- p_2^{m_2-1}\right)\ldots \left(p_k^{m_k}- p_k^{m_k - 1}\right)
-\end{align*}
-}
+\begin{teorema}{Formula generale calcolo $ \phi $ di eulero}
+	Sia $  n \ge 2 $. Se $ n = p_1 ^{ m_1} p_2 ^{ m_2} , \ldots , p_k^{m_k} $ dove $ p_1, p_2,\ldots ,p_k $ sono \underline{comprimi a due a due} e $ m_1,\ldots ,m_k > 0 $ allora
+	\begin{align*}
+		\phi \left(n\right) & =  \phi \left(p_1 ^{ m_1} p_2 ^{ m_2} , \ldots , p_k^{m_k}\right) = \phi \left(p_1^{m_1} \right) \phi  \left(p_2^{m_2}\right)\ldots \phi \left(p_k^{m_k}\right) \\
+		                    & = \left(p_1^{m_1} - p_1^{m_1-1}\right) \left(p_2^{m_2}- p_2^{m_2-1}\right)\ldots \left(p_k^{m_k}- p_k^{m_k - 1}\right)
+	\end{align*}
+\end{teorema}
 \subsection{Crittografia RSA}
 Tutto ciò dimostrato finora serve a dimostrare il teorema alla base della crittografia RSA.
 \hypertarget{teorsa}{}
-\teorema{Teorema base crittografia RSA}{
-Sia $ c $ \underline{coprimo} con $ \phi \left(n\right) $, allora l'applicazione $ C : \Z/_{n\Z} ^{*} \to \Z/_{n\Z} ^{ * } $ definita da $ x \to x^{c} $ è \underline{invertibile} e la sua inversa è data da $ D\left(x\right) = x^{d} $
-\[
-	C \left(x\right) = x^{c} \quad \quad D\left(x\right) = C ^{-1} \left(x\right) = x^{d}
-\]
-dove $ d $ è l'inverso modulo $ \phi \left(n\right) $ di $ c $, ossia $ cd \equiv 1 \mod \phi \left(n\right) $
-}
+\begin{teorema}{Teorema base crittografia RSA}
+	Sia $ c $ \underline{coprimo} con $ \phi \left(n\right) $, allora l'applicazione $ C : \Z/_{n\Z} ^{*} \to \Z/_{n\Z} ^{ * } $ definita da $ x \to x^{c} $ è \underline{invertibile} e la sua inversa è data da $ D\left(x\right) = x^{d} $
+	\[
+		C \left(x\right) = x^{c} \quad \quad D\left(x\right) = C ^{-1} \left(x\right) = x^{d}
+	\]
+	dove $ d $ è l'inverso modulo $ \phi \left(n\right) $ di $ c $, ossia $ cd \equiv 1 \mod \phi \left(n\right) $
+\end{teorema}
 \subsubsection*{Dimostrazione}
 \begin{itemize}
 	\item Visto che vale $ cd \equiv 1 \mod  \phi \left(n\right) $ allora $ cd = k \phi \left(n\right) + 1 $
@@ -1758,23 +1767,23 @@ L'inverso modulare di 9 è 9 stesso. L'insieme delle soluzioni è:
 	S = \left[49 ^{9} \right]_{60}
 \]
 \section{Grafi}
-\definizione{2-sottoinsieme}{
+\begin{definizione}{2-sottoinsieme}
 	Dato un insieme $ V $, indichiamo con
 	\[
 		\binom{V}{2}: = \left\{A \in  2^{V}| \left|A\right| = 2\right\}
 	\]
 	ossia tutti gli insiemi di due elementi che si possono costruire da $ V $. Un sottoinsieme contenente $ n $ elementi viene detto \textit{n-sottoinsieme}
-}
-\teorema{Cardinalità 2-sottoinsieme}{
+\end{definizione}
+\begin{teorema}{Cardinalità 2-sottoinsieme}
 	Considero un 2-sottoinsieme $ \binom{V}{2} $. Allora
 	\[
 		\left|\binom{V}{2}\right| = \binom{\left|V\right|}{2} = \frac{\left|V\right| \left(\left|V\right|-1\right)}{2}
 	\]
-}
+\end{teorema}
 Possiamo ora dare definizione formale di grafo:
-\definizione{Grafo}{
+\begin{definizione}{Grafo}
 	Un \underline{grafo} $ G $ è una \underline{coppia ordinata} $ \left(V, e\right) $, dove $ V $ è un insieme \underline{non vuoto}, detto \underline{insieme dei vertici} di $ G $, mentre $ e $ è un sottoinsieme di $ \binom{V}{2} $. $ \epsilon $ è detto insieme dei lati di $ G $
-}
+\end{definizione}
 Spesso indicheremo con $ V\left(G\right) $ l'insieme dei vertici, mentre $ E\left(G\right) $ l'insieme dei lati
 \subsubsection*{Esempio}
 \[
@@ -1794,38 +1803,38 @@ Spesso indicheremo con $ V\left(G\right) $ l'insieme dei vertici, mentre $ E\lef
 	\end{tikzpicture}
 \end{center}
 \begin{figure}[H]
-  \begin{center}
-      \begin{tikzpicture}
-      \node (1)[circle, draw] at (0,0){1};
-      \node (2)[circle, draw] at (1,0){2};
-      \node (3)[circle, draw] at (2,0){3};
-      \node (4)[circle, draw] at (2,1){4};
-      \node (5)[circle, draw] at (2,-1){5};
-      \draw [bend left](1)to(2);
-      \draw [bend left](2)to(1);
-      \draw (2)--(3);
-      \draw (2)--(4);
-      \draw (2)--(5);
-    \end{tikzpicture} 
-  \end{center}
+	\begin{center}
+		\begin{tikzpicture}
+			\node (1)[circle, draw] at (0,0){1};
+			\node (2)[circle, draw] at (1,0){2};
+			\node (3)[circle, draw] at (2,0){3};
+			\node (4)[circle, draw] at (2,1){4};
+			\node (5)[circle, draw] at (2,-1){5};
+			\draw [bend left](1)to(2);
+			\draw [bend left](2)to(1);
+			\draw (2)--(3);
+			\draw (2)--(4);
+			\draw (2)--(5);
+		\end{tikzpicture}
+	\end{center}
 	\caption{Questo non è un grafo}
 \end{figure}
 \subsection{Sottografi}
-\definizione{Sottografo}{
+\begin{definizione}{Sottografo}
 	Siano $ G = \left(V, E\right) $ e $ G'=\left(V', E '\right) $ due grafi. Diciamo che $ G' $ è un sottografo di $ G $ se $ V' \in V $ e $ E' \subset E$
-}
-\definizione{Sottografo indotto}{
+\end{definizione}
+\begin{definizione}{Sottografo indotto}
 	Siano $ G = \left(V, E\right) $ un grafo. Diciamo che $ G' $ è un sottografo di $ G $ indotto da $ V' $
 	\[
 		G\left[V'\right]  = \left(V', E \cap \binom{V'}{2}\right)
 	\]
-}
+\end{definizione}
 \subsection{Morfismi di grafi}
-\definizione{Morfismo di grafo}{
+\begin{definizione}{Morfismo di grafo}
 	Siano $ G \left(V, E\right) $ e $ G' = \left(V', E'\right) $. Una $ f: V \to  V' $ una \underline{funzione iniettiva} si dice \underline{morfismo} da $ G $ in $ G' $ se \underline{preserva i lati}
-}
+\end{definizione}
 
-\definizione{Isomorfismo di grafo}{
+\begin{definizione}{Isomorfismo di grafo}
 	Siano $ G \left(V, E\right) $ e $ G' = \left(V', E'\right) $. Una $ f: V \to  V' $ una \underline{funzione iniettiva} si dice \underline{isomorfismo} da $ G $ in $ G' $ se:
 	\begin{itemize}
 		\item $ f $ è bigettiva
@@ -1833,14 +1842,14 @@ Spesso indicheremo con $ V\left(G\right) $ l'insieme dei vertici, mentre $ E\lef
 		\item $ f^{-1}: V \left(G'\right) \to  V \left(G\right) $ è un morfismo
 	\end{itemize}
 	se esiste un isomorfismo da $ G $ e $ G' $ allora sono \underline{isomorfi}. Scriveremo che $ G \cong G'$
-}
-\teorema{Condizione isomorfismo}{
+\end{definizione}
+\begin{teorema}{Condizione isomorfismo}
 	Sia $  G = \left(V, E\right) $ e $ G' = \left(V', E'\right) $ e sia $ f: V \to  V' $. Allora $ f  $ è un isomorfismo da $ G $ in $ G' $ se e solo se:
 	\begin{itemize}
 		\item $ f $ è bigettiva
 		\item $ f\left(E\right) = E' $
 	\end{itemize}
-}
+\end{teorema}
 \subsubsection*{Dimostrazione}
 Chiaramente la prima proprietà coincide con la prima. La seconda proprietà afferma che $ f $ è un morfismo.
 
@@ -1875,7 +1884,7 @@ Chiaramente la prima proprietà coincide con la prima. La seconda proprietà aff
 		Quindi preserva i lati
 	\end{minipage}
 \end{minipage}
-\definizione{Passeggiate cammini e cicli}{
+\begin{definizione}{Passeggiate cammini e cicli}
 	Sia $  G \left(V, E\right) $ un grafo. Una successione finita ordinata $ \left(v_0,v_1,\ldots ,v_n\right) $ si verdici di $ G $ si dice:
 	\begin{itemize}
 		\item \underline{Passeggiata} se $ n = 0 $ oppure $  n \ge 1 $ e $ \left\{v_i, v_{i+1}\right\} \in E  \quad \forall i \in \left\{ 0,\ldots ,n-1\right\}$
@@ -1887,118 +1896,118 @@ Chiaramente la prima proprietà coincide con la prima. La seconda proprietà aff
 			      \item $ \left(v_0, \ldots , v_{n_1}\right) $ è un cammino
 		      \end{itemize}
 	\end{itemize}
-}
+\end{definizione}
 \subsubsection*{Esempio}
 \begin{center}
-  \begin{tikzpicture}
-    \draw 
-    (0,0)node(1)[ draw, circle, fill = white]{1}
-    (2,0)node(2)[draw, circle, fill = white]{2}
-    (4,0)node(6)[draw, circle, fill = white]{6}
-    (4,-2)node(4)[draw, circle, fill = white]{4}
-    (2,-2)node(3)[draw, circle, fill = white]{3}
-    (6,-2)node(5)[draw, circle, fill = white]{5};
-    %
-    \draw (1)--(2);
-    \draw (2)--(6);
-    \draw (6)--(4);
-    \draw (4)--(2);
-    \draw (2)--(3);
-    \draw (3)--(4);
-    \draw (4)--(5);
-\end{tikzpicture} 
+	\begin{tikzpicture}
+		\draw
+		(0,0)node(1)[ draw, circle, fill = white]{1}
+		(2,0)node(2)[draw, circle, fill = white]{2}
+		(4,0)node(6)[draw, circle, fill = white]{6}
+		(4,-2)node(4)[draw, circle, fill = white]{4}
+		(2,-2)node(3)[draw, circle, fill = white]{3}
+		(6,-2)node(5)[draw, circle, fill = white]{5};
+		%
+		\draw (1)--(2);
+		\draw (2)--(6);
+		\draw (6)--(4);
+		\draw (4)--(2);
+		\draw (2)--(3);
+		\draw (3)--(4);
+		\draw (4)--(5);
+	\end{tikzpicture}
 \end{center}
 \begin{minipage}[c]{0.48\textwidth}
-  \begin{tikzpicture}
-    \draw (0,0)node(1)[ draw, circle, fill = white]{1}
-    (2,0)node(2)[draw, circle, fill = white]{2}
-    (4,0)node(6)[draw, circle, fill = white]{6}
-    (4,-2)node(4)[draw, circle, fill = white]{4}
-    --(2,-2)node(3)[draw, circle, fill = white]{3}--(2,0)
-    (4,-2)(6,-2)node(5)[draw, circle, fill = white]{5};
-    \draw [-latex, thick](1)--(2);
-    \draw [-latex, thick](2)--(6);
-    \draw [-latex, thick](6)--(4);
-    \draw [-latex, thick](4)--(2);
-    \draw [-latex, thick](4)--(5);
-\end{tikzpicture} 
+	\begin{tikzpicture}
+		\draw (0,0)node(1)[ draw, circle, fill = white]{1}
+		(2,0)node(2)[draw, circle, fill = white]{2}
+		(4,0)node(6)[draw, circle, fill = white]{6}
+		(4,-2)node(4)[draw, circle, fill = white]{4}
+		--(2,-2)node(3)[draw, circle, fill = white]{3}--(2,0)
+		(4,-2)(6,-2)node(5)[draw, circle, fill = white]{5};
+		\draw [-latex, thick](1)--(2);
+		\draw [-latex, thick](2)--(6);
+		\draw [-latex, thick](6)--(4);
+		\draw [-latex, thick](4)--(2);
+		\draw [-latex, thick](4)--(5);
+	\end{tikzpicture}
 \end{minipage}
 %
 \begin{minipage}[c]{0.48\textwidth}
-  \begin{center}
-      Cammino di lunghezza $ 5 $ 
-    \[
-      C \left(1,2,6,4,5\right)
-    \] 
-  \end{center}
+	\begin{center}
+		Cammino di lunghezza $ 5 $
+		\[
+			C \left(1,2,6,4,5\right)
+		\]
+	\end{center}
 \end{minipage}
 \vskip3mm
 \begin{minipage}[c]{0.48\textwidth}
-  \begin{tikzpicture}
-    \draw 
-    (0,0)node(1)[ draw, circle, fill = white]{1}
-    (2,0)node(2)[draw, circle, fill = white]{2}
-    (4,0)node(6)[draw, circle, fill = white]{6}
-    (4,-2)node(4)[draw, circle, fill = white]{4}
-    (2,-2)node(3)[draw, circle, fill = white]{3}
-    (6,-2)node(5)[draw, circle, fill = white]{5};
-    %
-    \draw [-latex, thick](1)--(2);
-    \draw [-latex, thick](2)--(6);
-    \draw [-latex, thick](6)--(4);
-    \draw [-latex, thick](4)--(2);
-    \draw [-latex, thick](2)--(3);
-    \draw [-latex, thick](3)--(4);
-    \draw [-latex, thick](4)--(5);
-\end{tikzpicture} 
+	\begin{tikzpicture}
+		\draw
+		(0,0)node(1)[ draw, circle, fill = white]{1}
+		(2,0)node(2)[draw, circle, fill = white]{2}
+		(4,0)node(6)[draw, circle, fill = white]{6}
+		(4,-2)node(4)[draw, circle, fill = white]{4}
+		(2,-2)node(3)[draw, circle, fill = white]{3}
+		(6,-2)node(5)[draw, circle, fill = white]{5};
+		%
+		\draw [-latex, thick](1)--(2);
+		\draw [-latex, thick](2)--(6);
+		\draw [-latex, thick](6)--(4);
+		\draw [-latex, thick](4)--(2);
+		\draw [-latex, thick](2)--(3);
+		\draw [-latex, thick](3)--(4);
+		\draw [-latex, thick](4)--(5);
+	\end{tikzpicture}
 \end{minipage}
 %
 \begin{minipage}[c]{0.48\textwidth}
-  \begin{center}
-      Passeggiata di lunghezza $ 8 $ 
-    \[
-      P \left(1,2,6,4,2,3,4,5\right)
-    \] 
-  \end{center}
+	\begin{center}
+		Passeggiata di lunghezza $ 8 $
+		\[
+			P \left(1,2,6,4,2,3,4,5\right)
+		\]
+	\end{center}
 \end{minipage}
 \vskip3mm
 \begin{minipage}[c]{0.48\textwidth}
-  \begin{tikzpicture}
-    \draw 
-    (0,0)node(1)[ draw, circle, fill = white]{1}
-    --(2,0)node(2)[draw, circle, fill = white]{2}
-    (4,0)node(6)[draw, circle, fill = white]{6}
-    (4,-2)node(4)[draw, circle, fill = white]{4}
-    (2,-2)node(3)[draw, circle, fill = white]{3}
-    (6,-2)node(5)[draw, circle, fill = white]{5};
-    %
-    \draw [-latex, thick](2)--(6);
-    \draw [-latex, thick](6)--(4);
-    \draw [-latex, thick](4)--(3);
-    \draw [-latex, thick](3)--(2);
-    \draw (4)--(5);
-\end{tikzpicture} 
+	\begin{tikzpicture}
+		\draw
+		(0,0)node(1)[ draw, circle, fill = white]{1}
+		--(2,0)node(2)[draw, circle, fill = white]{2}
+		(4,0)node(6)[draw, circle, fill = white]{6}
+		(4,-2)node(4)[draw, circle, fill = white]{4}
+		(2,-2)node(3)[draw, circle, fill = white]{3}
+		(6,-2)node(5)[draw, circle, fill = white]{5};
+		%
+		\draw [-latex, thick](2)--(6);
+		\draw [-latex, thick](6)--(4);
+		\draw [-latex, thick](4)--(3);
+		\draw [-latex, thick](3)--(2);
+		\draw (4)--(5);
+	\end{tikzpicture}
 \end{minipage}
 %
 \begin{minipage}[c]{0.48\textwidth}
-  \begin{center}
-    Ciclo di lunghezza 4
-    \[
-      C \left(2,6,4,3\right)
-    \] 
-  \end{center}
+	\begin{center}
+		Ciclo di lunghezza 4
+		\[
+			C \left(2,6,4,3\right)
+		\]
+	\end{center}
 \end{minipage}
 
-\definizione{Confiungibilità}{
+\begin{definizione}{Confiungibilità}
 	Sia $ G = \left(V, E\right) $ un grafo e siano $ v,w \in V $. Diciamo che $ v $ è \underline{congiungibile} a $ w $ in $ G $ per cammini (o per passeggiate), se esiste una cammino (o una passeggiata) che parte da $ v $ e finisce in $ w $.
 	\[
 		\exists \left(v_0,\ldots ,v_n\right) \text{ t.c. } v_0 = v \text{ e } v_n = w
 	\]
-}
-\teorema{Congiungibilità per cammino o passeggiata}{
+\end{definizione}
+\begin{teorema}{Congiungibilità per cammino o passeggiata}
 	Se $ v $ e $ w $ sono congiungiungibili \underline{per passeggiate} in $ G $, allora lo  sono \underline{anche per cammini} e viceversa
-}
-\label{teocongiung} 
+\end{teorema}
+\label{teocongiung}
 \subsubsection*{Dimostrazione}
 \begin{itemize}
 	\item Se $ v $ e $ k $ sono congiungibili per cammini, allora lo sono anche per passeggiate in quanto un cammino è una passeggiata
@@ -2023,13 +2032,13 @@ Chiaramente la prima proprietà coincide con la prima. La seconda proprietà aff
 		            \end{itemize}
 	      \end{itemize}
 \end{itemize}
-\definizione{Grafi connessi}{
+\begin{definizione}{Grafi connessi}
 	Sia $ \sim  $ una relazione di equivalenza tale che
 	\[
 		v \sim  w \text{ se } v \text{ è connesso a } w
 	\]
 	detta $ \left[c\right]_{\sim } $ la classe dei vertici che soddisfano la relazione $ \sim $ a partire da $ c $, allora il sottografo indotto dai vertici di una tale classe è detto \underline{grafo delle componenti connesse}. Se un grafo ha una sola classe è detto \underline{grafo connesso}. In caso contrario è detto \underline{grafto sconnesso}
-}
+\end{definizione}
 \subsubsection*{Esempio}
 \vskip3mm
 \begin{center}
@@ -2087,7 +2096,7 @@ Chiaramente la prima proprietà coincide con la prima. La seconda proprietà aff
 \end{align*}
 \subsection{Grafi 2-connessi e hamiltoniani}
 Definiamo innanzitutto delle operazioni sui grafi:
-\definizione{Operazioni sui grafi}{
+\begin{definizione}{Operazioni sui grafi}
 	Sia $G=(V, E)$ un grafo, definiamo alcuni grafi costruiti a partire da $G$ :
 	\begin{itemize}
 		\item  \textit{Cancellazione di un lato} se $e \in E$ denotiamo
@@ -2108,37 +2117,37 @@ Definiamo innanzitutto delle operazioni sui grafi:
 		      \]
 		      essendo $z \notin V$.
 	\end{itemize}
-}
-\definizione{Grafo 2-connesso}{
+\end{definizione}
+\begin{definizione}{Grafo 2-connesso}
 	Una grafo $ F $ si dice \underline{2-connesso} se ha almeno tre vertici e
 	\[
 		\forall  v \in  V \left(G\right)\quad G-v\text{ è connesso }
 	\]
 	ossia qualsiasi vertice io tolga ottengo un grafo connesso
-}
-\definizione{Grafo hamiltoniano}{
+\end{definizione}
+\begin{definizione}{Grafo hamiltoniano}
 	Sia $ G $ un grafo. Un ciclio in $ G $ che attraversa tutti i vertici di $ G $ è detto \underline{ciclo hamiltoniano} in $ G $. Se $ G $ ammette almeno un ciclo hamiltoniano, allora $ G $ è detto \underline{grafo hamiltoniano}
-}
+\end{definizione}
 Nota che un grafo hamiltoniano è sempre anche 2-connesso
 \subsection{Gradi di un vertice e teoremi correlati}
-\definizione{Grafo finito}{
+\begin{definizione}{Grafo finito}
 	Un grafo si dice finito se il suo \underline{numero di vertici} è finito
-}
+\end{definizione}
 Nota che un grafo finito ha anche un numero di lati finito. Tuttavia un grafo con numero finito di lati può essere anche infinito
-\definizione{Grado di un vertice}{
+\begin{definizione}{Grado di un vertice}
 	Sia $ G = \left(V, f\right) $ un grafo finito e sia $ v \in  V $. Definiamo il \underline{grado} $ deg_G\left(V\right) $ di $ v  $in $ G $ ponendo:
 	\[
 		deg_G\left(v\right) = \left|\left\{e \in  E\right\}| v \in  e\right|
 	\]
 	intuitivamente indica il \underline{numero di lati che escono} da $ v $
-}
-\teorema{Somma dei gradi}{
+\end{definizione}
+\begin{teorema}{Somma dei gradi}
 	Sia $ G = \left(V, f\right) $ un grafo finito. Allora vale che
 	\[
 		\sum_{v \in  V}\operatorname{deg}_G \left(v\right)  = 2 \left|E\right|
 	\]
-}
-\label{teosommadeigradi} 
+\end{teorema}
+\label{teosommadeigradi}
 Intuitivamente, ogni volta che aggiungo un lato, ogni lo score dei due vertici che collega si alzerà di 1 per ogni vertice.
 \subsubsection*{Dimostrazione}
 Definisco innanzitutto la matrice di adiacenza nel seguente modo:
@@ -2163,41 +2172,41 @@ immaginati di avere sulla ascisse il vertice e sulle ordinate il lato. Se in pos
 		      \sum_{i=1}^{n} \operatorname{deg} \left(v_i\right) = 2 \left|E\right|
 	      \]
 \end{itemize}
-\teorema{Teorema delle strette di mano}{
-  Il numero di vertici \underline{di grado dispari} in un grafo \underline{finito} è \underline{pari}
-}
+\begin{teorema}{Teorema delle strette di mano}
+	Il numero di vertici \underline{di grado dispari} in un grafo \underline{finito} è \underline{pari}
+\end{teorema}
 \label{teostrettedimano}
 \subsubsection*{Dimostrazione}
-Consideriamo i due insiemi contenenti i vertici pari e dispari: 
+Consideriamo i due insiemi contenenti i vertici pari e dispari:
 \begin{align*}
-  P:= \left\{v \in V | \operatorname{deg}_G\left(v\right) \text{ è pari }\right\} && D:= \left\{v \in V | \operatorname{deg}_G\left(v\right) \text{ è dispari }\right\}
+	P:= \left\{v \in V | \operatorname{deg}_G\left(v\right) \text{ è pari }\right\} &  & D:= \left\{v \in V | \operatorname{deg}_G\left(v\right) \text{ è dispari }\right\}
 \end{align*}
-ora so che la somma di questi gradi sarà uguale alla somma di tutti i gradi: 
+ora so che la somma di questi gradi sarà uguale alla somma di tutti i gradi:
 \[
-  \sum_{v \in  P} \operatorname{deg}_G\left(v\right) + \sum_{v \in  D} \operatorname{deg}_G\left(v\right) = \sum_{v \in  V} \operatorname{deg}_G\left(v\right) = \underbracket[0.1ex]{2 \left|E\right|}_{\text{ teo \ref{teosommadeigradi}}}
+	\sum_{v \in  P} \operatorname{deg}_G\left(v\right) + \sum_{v \in  D} \operatorname{deg}_G\left(v\right) = \sum_{v \in  V} \operatorname{deg}_G\left(v\right) = \underbracket[0.1ex]{2 \left|E\right|}_{\text{ teo \ref{teosommadeigradi}}}
 \]
-A questo punto , girando l'uguaglianza ottengo che : 
+A questo punto , girando l'uguaglianza ottengo che :
 \[
-   \sum_{v \in  D} \underbracket[0.1ex]{\operatorname{deg}_G\left(v\right)}_{\text{ dispari }} = \overbracket[0.1ex]{\sum_{v \in  P} \operatorname{deg}_G\left(v\right)}^{\text{ pari }} + \overbracket[0.1ex]{2 \left|E\right|}^{\text{ pari }}
+	\sum_{v \in  D} \underbracket[0.1ex]{\operatorname{deg}_G\left(v\right)}_{\text{ dispari }} = \overbracket[0.1ex]{\sum_{v \in  P} \operatorname{deg}_G\left(v\right)}^{\text{ pari }} + \overbracket[0.1ex]{2 \left|E\right|}^{\text{ pari }}
 \]
 \begin{itemize}
-  \item Il membro di destra è pari (somma di numeri pari è pari)
-  \item La somma di numeri dispari è pari se e solo se \underline{il numero di numeri dispari} è \underline{pari}
+	\item Il membro di destra è pari (somma di numeri pari è pari)
+	\item La somma di numeri dispari è pari se e solo se \underline{il numero di numeri dispari} è \underline{pari}
 \end{itemize}
-\definizione{Foglia}{
+\begin{definizione}{Foglia}
 	Sia $ G = \left(V, E\right) $ un grafo . Un vertice $ v \in  V $ si dice \underline{foglia} di $ G $ se
 	\[
 		deg\left(v\right) = 1
 	\]
-}
-\teorema{Foglie in grafo 2 connesso}{
+\end{definizione}
+\begin{teorema}{Foglie in grafo 2 connesso}
 	Sia $ G = \left(V, E\right) $ un grafo \underline{2-connesso}. Allora $ G $ \underline{non ha foglie}
-}\label{foglie 2-connesso}
+\end{teorema}\label{foglie 2-connesso}
 \subsubsection*{Dimostrazione}
 Supponiamo per assurdo che esista una foglia di $ G $, ossia $ \exists v \in V \text{ t.c. } deg\left(v\right) = 1 $. Se considero il grafo $ G - w $ dove $ w \in \left\{w,v\right\} $, allora chiaramente ottengo un grafo sconnesso
-\teorema{Foglie grafo hamiltoniano}{
+\begin{teorema}{Foglie grafo hamiltoniano}
 	Se $ G = \left(V, E\right) $ è un grafo hamiltoniano allora \underline{non ha foglie}
-}
+\end{teorema}
 \subsubsection*{Dimostrazione}
 Il fatto che un grafo sia hamiltoniano implica che sia $ 2-connesso $, allora per teo \ref{foglie 2-connesso} ho che il grafo \underline{non ha foglie}
 \vskip3mm
@@ -2217,7 +2226,7 @@ Nota che non è vero che se un grafo è connesso e senza foglie allora è 2-conn
 		\node [anchor = north ] at (5,3) {Grafi hamiltoniani};
 	\end{tikzpicture}
 \end{center}
-\teorema{Proprietà grafi isomorfi}{
+\begin{teorema}{Proprietà grafi isomorfi}
 	Siano $ G  $ e $ G' $ grafi finiti. Supponiamo $ G \cong G' $. Allora valgono:
 	\begin{itemize}
 		\item $ \text{ Score}\left(G\right) = \text{ Score} \left(G'\right) $
@@ -2226,7 +2235,7 @@ Nota che non è vero che se un grafo è connesso e senza foglie allora è 2-conn
 		\item $ G $ è hamiltoniano $ \Leftrightarrow G' $ è hamiltoniano
 		\item $ G $ e $ G' $ hanno lo stesso numero di sottografi che sono 3-cicli, 4-cicli,$ \ldots  $
 	\end{itemize}
-}
+\end{teorema}
 \subsection{Verificare se uno score esiste o meno}
 \subsubsection*{Osservazione}
 Se conosco lo score di un grafo allora conosco anche il numero di vertici e lati:
@@ -2234,13 +2243,13 @@ Se conosco lo score di un grafo allora conosco anche il numero di vertici e lati
 	\item Il numero di vertici è il numero di entrate nello score
 	\item La somma delle entrare dello score è il numero di lati presenti
 \end{itemize}
-\teorema{Condizione esistenza score 1}{
+\begin{teorema}{Condizione esistenza score 1}
 	Sia $ d = \left(d_1,d_1,\ldots ,d_n\right) \in  \N ^{n} $ con $ n \ge  1 $ con $ d_1 \le  d_2 \le  \ldots \le  d_n $ lo score di un grafo. Se
 	\[
 		d_n > n -1
 	\]
 	\underline{non può essere lo score} di alcun grafo
-}
+\end{teorema}
 \begin{itemize}
 	\item Se la $ n $-upla è lunga $ n $, allora vuol dire che il grafo ha $ n $ vertici
 	\item Ogni vertice può essere collegato con al massimo $ n-1 $ vertici
@@ -2254,13 +2263,13 @@ in questo caso lo score è lungo $ n = 11 $ dunque non posso provare l'inesisten
 	d = \left(1,1,2,2,2,3,4,9\right)
 \]
 non esiste, allora non esiste nemmeno lo score iniziale
-\teorema{Condizione esistenza score 2}{
+\begin{teorema}{Condizione esistenza score 2}
 	Siano $ h, k \in  \N \setminus \left\{0\right\} $, sia $ n :=h + k $ e sia $ d \in  \N ^{n} $ tale che :
 	\[
 		d = \left(\underbracket[0.1ex]{d_1, d_2, \ldots ,d_h}_{h \text{ volte }}, \underbracket[0.1ex]{n-1, n-1, \ldots , n-1}_{k \text{ volte }}\right)
 	\]
 	allora se $ d_1 < k $, allora $ \not \exists G $ con score $ d $
-}
+\end{teorema}
 \subsubsection*{Dimostrazione}
 Supponiamo per assurdo che eiste $ G \left(V, E\right) $ con score $ d $. Se ho $ k $ vertici collegati a $ n-1 $ vertici, ossia a tutti, non posso avere nemmeno un vertice che \underline{non} sia collegato ad \underline{almeno $ k $} vertici
 \subsubsection*{Esempio}
@@ -2276,7 +2285,7 @@ quindi $ n = 14 $
 		      d' = \left(2,3,3,3,3,3,3,4,10,10,10\right)
 	      \]
 \end{itemize}
-\teorema{Condizione esitenza score 3}{
+\begin{teorema}{Condizione esitenza score 3}
 	Sia $  n \in  \N  $  e $ n \ge  3 $, sia $ d = \left(d_1,\ldots ,d_n\right) \in  \N ^{n} $ tale che
 	\[
 		d_1 \le  d_2 \le  \ldots \le  d_n
@@ -2290,7 +2299,7 @@ quindi $ n = 14 $
 		L < d_{n-1} + d_n - n
 	\]
 	allora \underline{non esiste} un grafo con tale score
-}
+\end{teorema}
 L'idea intuitiva è la seguente:
 \begin{itemize}
 	\item Immaginati di porre gli utlimi due vertici dello score $ d_{n-1}, d_n $
@@ -2311,10 +2320,10 @@ L'idea intuitiva è la seguente:
 		\draw (2)--++(170:1.5);
 	\end{tikzpicture}
 \end{center}
-\teorema{Condizione esitenza score 4}{
+\begin{teorema}{Condizione esitenza score 4}
 	Se il vettore $  d \in  \N  ^{n} $ possiede un numero dispari di componenti dispari allora \underline{non} può essere lo score di un grafo, grazie al \underline{lemma delle strette di mano}
-}
-\teorema{Prerequisito teorema dello score}{
+\end{teorema}
+\begin{teorema}{Prerequisito teorema dello score}
 	Sia $ n \in  \N  \setminus \left\{ 0\right\} $ e sia $  d = \left(d_1, \ldots , d_n\right)\in  \N^{n} $ tale che $ d_1 \le  d_2 \le  \ldots \le  d_n  \le  2$. Valgono le seguenti:
 	\begin{itemize}
 		\item Se $ d = \left(0,0,\ldots ,0,2\right) $ oppure $ d = \left(0,0,\ldots , 2,2\right) $ allora \underline{non esiste}
@@ -2332,141 +2341,141 @@ L'idea intuitiva è la seguente:
 				\node [draw, circle, label = $ v_h $]at(2,0) {0};
 				\draw (4,0) node [draw, circle, fill = white, label = $ v_{h+1}$] {1}
 				-- (5,0)node [draw, circle, fill = white, label = $ v_{n-m+1}$] {2}
-        -- (6,0)node [fill = white] {$ \ldots  $}
+				-- (6,0)node [fill = white] {$ \ldots  $}
 				-- (7,0) node [draw, circle, fill = white, label = $ v_{n}$] {2}
 				-- (8,0)node [draw, circle, fill = white, label = $ v_{h+2}$] {1};
 				%
-        \draw (10,0)	node [draw, circle, fill = white, label = $ v_{h+2}$] {1}
-        --(11,0)	node [draw, circle, fill = white, label = $ v_{h+4}$] {1}
-        (12,0) [fill = white]node {$ \ldots  $}
-        (13,0)	node [draw, circle, fill = white, label = $ v_{2k+1}$] {1}
-        --(14,0)	node [draw, circle, fill = white, label = $ v_{2k+2}$] {1};
+				\draw (10,0)	node [draw, circle, fill = white, label = $ v_{h+2}$] {1}
+				--(11,0)	node [draw, circle, fill = white, label = $ v_{h+4}$] {1}
+				(12,0) [fill = white]node {$ \ldots  $}
+				(13,0)	node [draw, circle, fill = white, label = $ v_{2k+1}$] {1}
+				--(14,0)	node [draw, circle, fill = white, label = $ v_{2k+2}$] {1};
 			\end{tikzpicture}}
 		\textit{Grafo "canonico"} dell'ultimo punto
 	\end{center}
-}\label{score banale} 
-\teorema{Teorema dello score}{
-  Sia $  n \in  \N  $ con $ n \ge 2 $ e sia $ d = \left(d_1, \ldots , d_n\right) \in  \N ^{n} $ tale che $ d_1 \le  \ldots \le d_n \le  n-1 $. Definiamo il vetore $ d' =\left(d_1',\ldots , d'_{n-1} \in  \N ^{n-1}\right) $, togliendo l'ultimo elemento di $ d $ in modo tale che: 
-  \[
-  d_i' = 
-  \begin{cases}
-    d_i & \text{ se } i < n-d_n\\
-    d_i - 1 & \text{ se } i \ge  n-d_n
-  \end{cases}
-  \]
-  per $ i \in  \left\{1,\ldots ,n-1\right\} $. Allora 
-  \begin{center}
-    $ d $ esiste $ \Leftrightarrow  $ esiste $ d' $
-  \end{center}
-}
-Nota che il teorema può essere applicatore iterativamente su anche su $ d' $ finche non otteniamo uno score banale. 
+\end{teorema}\label{score banale}
+\begin{teorema}{Teorema dello score}
+	Sia $  n \in  \N  $ con $ n \ge 2 $ e sia $ d = \left(d_1, \ldots , d_n\right) \in  \N ^{n} $ tale che $ d_1 \le  \ldots \le d_n \le  n-1 $. Definiamo il vetore $ d' =\left(d_1',\ldots , d'_{n-1} \in  \N ^{n-1}\right) $, togliendo l'ultimo elemento di $ d $ in modo tale che:
+	\[
+		d_i' =
+		\begin{cases}
+			d_i     & \text{ se } i < n-d_n    \\
+			d_i - 1 & \text{ se } i \ge  n-d_n
+		\end{cases}
+	\]
+	per $ i \in  \left\{1,\ldots ,n-1\right\} $. Allora
+	\begin{center}
+		$ d $ esiste $ \Leftrightarrow  $ esiste $ d' $
+	\end{center}
+\end{teorema}
+Nota che il teorema può essere applicatore iterativamente su anche su $ d' $ finche non otteniamo uno score banale.
 \subsubsection*{Esempio}
-Consideriamo lo score 
+Consideriamo lo score
 \[
-  \left(2,2,2,2,3,3,3,5,6\right)
+	\left(2,2,2,2,3,3,3,5,6\right)
 \]
 \begin{center}
-  \begin{tabular}{|l l|}
-    \hline
-    Score & Dati \\
-    \hline
-    $ (2,2,\underbracket[0.1ex]{2,2,3,3,3,5}_{\text{ range }},6) $ & $ n = 9, n - d_m = 3 $ \\ 
-    \hline
-    $ (2,2,1,1,2,2,2,4) $ & \multirow{2}{*}{$ n=8, n-d_m = 4 $} \\ 
-    $ (1,1,2,\underbracket[0.1ex]{2,2,2,2}_{\text{ range }},4) $ &  \\ 
-    \hline
-    $ (1,1,2,1,1,1,1) $ & \multirow{2}{*}{Ottengo score banale} \\ 
-    $ \left(1,1,1,1,1,1,2\right) $ &  \\ 
-    \hline
-  \end{tabular}
+	\begin{tabular}{|l l|}
+		\hline
+		Score                                                          & Dati                                  \\
+		\hline
+		$ (2,2,\underbracket[0.1ex]{2,2,3,3,3,5}_{\text{ range }},6) $ & $ n = 9, n - d_m = 3 $                \\
+		\hline
+		$ (2,2,1,1,2,2,2,4) $                                          & \multirow{2}{*}{$ n=8, n-d_m = 4 $}   \\
+		$ (1,1,2,\underbracket[0.1ex]{2,2,2,2}_{\text{ range }},4) $   &                                       \\
+		\hline
+		$ (1,1,2,1,1,1,1) $                                            & \multirow{2}{*}{Ottengo score banale} \\
+		$ \left(1,1,1,1,1,1,2\right) $                                 &                                       \\
+		\hline
+	\end{tabular}
 \end{center}
 Come visto in teo \ref{score banale} esiste un grafo con score $ \left(1,1,1,1,1,1,2\right) $, allora posso affermare che ne esiste uno con score $ \left(2,2,2,2,3,3,3,5,6\right) $. Posso ora costruire un grafo con quest'ultimo score procedendo così:
 \begin{itemize}
-  \item Nella tabella ho ottenuto i seguenti score secondo l'algoritmo dello Score: 
-    \begin{align*}
-      d &= \left(2,2,2,2,3,3,3,5,6\right) \\
-      d' &= \left(1,1,2,2,2,2,2,4\right) \\ 
-      d'' &= \left(1,1,1,1,1,1,2\right)
-    \end{align*}
-  \item Disegno grafo canonico dell'ultimo score:
-    \begin{center}
-          \begin{tikzpicture}[every node/.style={draw,circle, fill = white}]
-          \draw  (0,0)[circle] node {1}
-          --++(1,0)node{2}
-          --++(1,0)node{1}
-          ++(1,0)node{1}
-          --++(1,0)node{1}
-          ++(1,0)node{1}
-          --++(1,0)node{1};
-        \end{tikzpicture} 
-    \end{center}
-  \item Aggiungo il vertice che ho tolto nell'ultimo passaggio. Lo collego in maniera tale da riscostruire le differenze con l'ultimo score
-    \begin{center}
-          \begin{tikzpicture}[every node/.style={draw,circle, fill = white}]
-            \draw  (0,0) node(a) {2}
-            --++(1,0)node(b){2}
-            --++(1,0)node(c){2}
-              ++(1,0)node(d){2}
-            --++(1,0)node(e){2}
-              ++(1,0)node(f){1}
-            --++(1,0)node(g){1};
-            \node [dashed](h) at (2,2) {4};
-            \draw [dashed ,bend right](h)to(a);
-            \draw [dashed](h)to(c);
-            \draw [dashed ,bend left](h)to(d);
-            \draw [dashed ,bend left](h)to(e);
-        \end{tikzpicture} 
-    \end{center}
-  \item Ripeto iterativamente: 
-        \begin{center}
-          \begin{tikzpicture}[every node/.style={draw,circle, fill = white}]
-            \draw  (0,0) node(a) {3}
-            --++(1,0)node(b){3}
-            --++(1,0)node(c){3}
-              ++(1,0)node(d){2}
-            --++(1,0)node(e){2}
-              ++(1,0)node(f){2}
-            --++(1,0)node(g){2};
-            \node (h) at (2,2) {5};
-            \draw [bend right](h)to(a);
-            \draw (h)to(c);
-            \draw [bend left](h)to(d);
-            \draw [bend left](h)to(e);
-            %
-            \node [dashed](i) at (2,-2) {6};
-            \draw[dashed, bend left](i)to(a);
-            \draw[dashed, bend left](i)to(b);
-            \draw[dashed](i)to(c);
-            \draw[dashed,bend angle = 22, bend right](i)to(h);
-            \draw[dashed, bend right](i)to(f);
-            \draw[dashed, bend right](i)to(g);
-        \end{tikzpicture} 
-    \end{center}
-\item Il grafo ottenuto tramite la ricostruzione arritrovo e quindi il seguente: 
-        \begin{center}
-          \begin{tikzpicture}[every node/.style={draw,circle, fill = white}]
-            \draw  (0,0) node(a) {3}
-            --++(1,0)node(b){3}
-            --++(1,0)node(c){3}
-              ++(1,0)node(d){2}
-            --++(1,0)node(e){2}
-              ++(1,0)node(f){2}
-            --++(1,0)node(g){2};
-            \node (h) at (2,2) {5};
-            \draw [bend right](h)to(a);
-            \draw (h)to(c);
-            \draw [bend left](h)to(d);
-            \draw [bend left](h)to(e);
-            %
-            \node (i) at (2,-2) {6};
-            \draw [bend left](i)to(a);
-            \draw [bend left](i)to(b);
-            \draw (i)to(c);
-            \draw [bend angle = 22, bend right](i)to(h);
-            \draw [bend right](i)to(f);
-            \draw [bend right](i)to(g);
-        \end{tikzpicture} 
-    \end{center}
+	\item Nella tabella ho ottenuto i seguenti score secondo l'algoritmo dello Score:
+	      \begin{align*}
+		      d   & = \left(2,2,2,2,3,3,3,5,6\right) \\
+		      d'  & = \left(1,1,2,2,2,2,2,4\right)   \\
+		      d'' & = \left(1,1,1,1,1,1,2\right)
+	      \end{align*}
+	\item Disegno grafo canonico dell'ultimo score:
+	      \begin{center}
+		      \begin{tikzpicture}[every node/.style={draw,circle, fill = white}]
+			      \draw  (0,0)[circle] node {1}
+			      --++(1,0)node{2}
+			      --++(1,0)node{1}
+			      ++(1,0)node{1}
+			      --++(1,0)node{1}
+			      ++(1,0)node{1}
+			      --++(1,0)node{1};
+		      \end{tikzpicture}
+	      \end{center}
+	\item Aggiungo il vertice che ho tolto nell'ultimo passaggio. Lo collego in maniera tale da riscostruire le differenze con l'ultimo score
+	      \begin{center}
+		      \begin{tikzpicture}[every node/.style={draw,circle, fill = white}]
+			      \draw  (0,0) node(a) {2}
+			      --++(1,0)node(b){2}
+			      --++(1,0)node(c){2}
+			      ++(1,0)node(d){2}
+			      --++(1,0)node(e){2}
+			      ++(1,0)node(f){1}
+			      --++(1,0)node(g){1};
+			      \node [dashed](h) at (2,2) {4};
+			      \draw [dashed ,bend right](h)to(a);
+			      \draw [dashed](h)to(c);
+			      \draw [dashed ,bend left](h)to(d);
+			      \draw [dashed ,bend left](h)to(e);
+		      \end{tikzpicture}
+	      \end{center}
+	\item Ripeto iterativamente:
+	      \begin{center}
+		      \begin{tikzpicture}[every node/.style={draw,circle, fill = white}]
+			      \draw  (0,0) node(a) {3}
+			      --++(1,0)node(b){3}
+			      --++(1,0)node(c){3}
+			      ++(1,0)node(d){2}
+			      --++(1,0)node(e){2}
+			      ++(1,0)node(f){2}
+			      --++(1,0)node(g){2};
+			      \node (h) at (2,2) {5};
+			      \draw [bend right](h)to(a);
+			      \draw (h)to(c);
+			      \draw [bend left](h)to(d);
+			      \draw [bend left](h)to(e);
+			      %
+			      \node [dashed](i) at (2,-2) {6};
+			      \draw[dashed, bend left](i)to(a);
+			      \draw[dashed, bend left](i)to(b);
+			      \draw[dashed](i)to(c);
+			      \draw[dashed,bend angle = 22, bend right](i)to(h);
+			      \draw[dashed, bend right](i)to(f);
+			      \draw[dashed, bend right](i)to(g);
+		      \end{tikzpicture}
+	      \end{center}
+	\item Il grafo ottenuto tramite la ricostruzione arritrovo e quindi il seguente:
+	      \begin{center}
+		      \begin{tikzpicture}[every node/.style={draw,circle, fill = white}]
+			      \draw  (0,0) node(a) {3}
+			      --++(1,0)node(b){3}
+			      --++(1,0)node(c){3}
+			      ++(1,0)node(d){2}
+			      --++(1,0)node(e){2}
+			      ++(1,0)node(f){2}
+			      --++(1,0)node(g){2};
+			      \node (h) at (2,2) {5};
+			      \draw [bend right](h)to(a);
+			      \draw (h)to(c);
+			      \draw [bend left](h)to(d);
+			      \draw [bend left](h)to(e);
+			      %
+			      \node (i) at (2,-2) {6};
+			      \draw [bend left](i)to(a);
+			      \draw [bend left](i)to(b);
+			      \draw (i)to(c);
+			      \draw [bend angle = 22, bend right](i)to(h);
+			      \draw [bend right](i)to(f);
+			      \draw [bend right](i)to(g);
+		      \end{tikzpicture}
+	      \end{center}
 
 \end{itemize}
 \section{Esercizi}
@@ -2486,11 +2495,12 @@ Dimostrare per induzione su $ n \ge  0 $ che vale la proprietà:
 	      \]
 \end{itemize}
 \subsection{Alberi e foreste}
-\definizione{Alberi e foreste}{
+\begin{definizione}{Alberi e foreste}
 	Un grafo si dice \underline{albero} se è un grafo \underline{connesso senza cicli}. Una \underline{foresta} è un grafo \underline{senza cicli}
-}
+\end{definizione}
+
 Nota che un grafo è una foresta solo se le sue componenti connesse sono tutte alberi
-\teorema{Caratterizzazione alberi}{
+\begin{teorema}{Caratterizzazione alberi}
 	Sia $ T =\left(V, E\right) $ un grafo (non necessariamente finito). Le seguenti affermazioni sono equivalenti:
 	\begin{itemize}
 		\item $ T $ è un albero
@@ -2498,10 +2508,10 @@ Nota che un grafo è una foresta solo se le sue componenti connesse sono tutte a
 		\item $ T $ è connesso ma $ \forall  e \in  E $ il grafo $ T - e $ è sconnesso
 		\item $ T $ non ha cicli e  $ \forall  e \in  \binom{V}{2} \setminus  E $ il grafo $ T + e $ ha almeno un ciclo
 	\end{itemize}
-}
-\teorema{Foglie e alberi}{
+\end{teorema}
+\begin{teorema}{Foglie e alberi}
 	Sia $ T $ un albero finito avente almeno due vertici. Allora $ T $ possiede \underline{almeno due foglie}
-}
+\end{teorema}
 Nota che il teorema è falso per i grafi \underline{non finiti}:
 \vskip3mm
 \begin{center}
@@ -2534,188 +2544,189 @@ oppure
 	\end{tikzpicture}
 \end{center}
 \hypertarget{teoeulerografi}{}
-\teorema{Formula di eulero per gli alberi}{
-  Sia $ T \left(V, E\right) $ un grafo \underline{finito e connesso}. Allora 
-  \[
-  T \text{ è un albero } \Leftrightarrow \left| V\right| = \left|E\right| + 1
-  \]
-}
-\subsubsection*{Dimostrazione $ \Rightarrow  $} 
+\begin{teorema}{Formula di eulero per gli alberi}
+	Sia $ T \left(V, E\right) $ un grafo \underline{finito e connesso}. Allora
+	\[
+		T \text{ è un albero } \Leftrightarrow \left| V\right| = \left|E\right| + 1
+	\]
+\end{teorema}
+\subsubsection*{Dimostrazione $ \Rightarrow  $}
 Procediamo per induzione su $ \left|V\right| \ge  1 $
 \begin{itemize}
-  \item \textit{Base induzione} $ V = 1 $, non può avere lati dunque vale l'hp \checkmark
-  \item \textit{Ipotesi induttiva} un albero con $ n $ vertici soddisfa la hp, ossia vale che $ \left|V\right| = \left|E\right| + 1 $ 
-    \begin{itemize}
-      \item So che ogni albero con $ \left|V\right| \ge 2 $ ha almeno due foglie
-      \item So che se tolgo una foglia ad un albero questo rimane un albero
-      \item Dunque tolgo una foglia all'albero $ T $, ricadendo nell'ipotesi induttiva 
-        \[
-          \left|V \left(T-v\right)\right| - 1 = \left|E \left(T-v\right)\right|
-        \]
-      \item Tuttavia, rimuovendo una foglia tolgo a $ T $ un vertice e un lato, dunque vale che 
-        \[
-          \left|V\left(T-v\right)\right| = \left|V \left(T\right)\right| -1 \quad \quad \left|E \left(T-v\right)\right| = \left|E \left(T\right)\right|-1
-        \]
-      \item Sostituendo nella prima equazione, ottengo che 
-        \[
-          \left|V \left(T\right)\right| -1 = \left|E \left(T\right)\right|
-        \]
-    \end{itemize}
+	\item \textit{Base induzione} $ V = 1 $, non può avere lati dunque vale l'hp \checkmark
+	\item \textit{Ipotesi induttiva} un albero con $ n $ vertici soddisfa la hp, ossia vale che $ \left|V\right| = \left|E\right| + 1 $
+	      \begin{itemize}
+		      \item So che ogni albero con $ \left|V\right| \ge 2 $ ha almeno due foglie
+		      \item So che se tolgo una foglia ad un albero questo rimane un albero
+		      \item Dunque tolgo una foglia all'albero $ T $, ricadendo nell'ipotesi induttiva
+		            \[
+			            \left|V \left(T-v\right)\right| - 1 = \left|E \left(T-v\right)\right|
+		            \]
+		      \item Tuttavia, rimuovendo una foglia tolgo a $ T $ un vertice e un lato, dunque vale che
+		            \[
+			            \left|V\left(T-v\right)\right| = \left|V \left(T\right)\right| -1 \quad \quad \left|E \left(T-v\right)\right| = \left|E \left(T\right)\right|-1
+		            \]
+		      \item Sostituendo nella prima equazione, ottengo che
+		            \[
+			            \left|V \left(T\right)\right| -1 = \left|E \left(T\right)\right|
+		            \]
+	      \end{itemize}
 \end{itemize}
 \subsubsection*{Dimostrazione $ \Leftarrow  $}
 Procediamo per induzione su $ \left|V\right| \ge 1 $
 \begin{itemize}
-  \item \textit{Base induzione} $ V =1 $ chiaramente verificata come prima \checkmark
-  \item \textit{Ipotesi induttiva} un grafo finito per cui vale $ \left|V\right| = \left|E\right| + 1 $ è un \underline{albero}
-    \begin{itemize}
-      \item Devo dimostrare che il grafo ha almeno una foglia: supponiamo per assurdo che non la abbia 
-        \[
-          2 \left|V\right| - 2 =\underbracket[0.1ex]{2 \left(\left|V\right| - 1\right) }_{\text{per hp}} =\overbracket[0.1ex]{ 2 \cdot \left|E\right| = \sum \deg \left(v\right)}^{\text{ teo \hyperlink{teosommadeigradi}{somma gradi} }} \underbracket[0.1ex]{\ge 2 \left|V\right|}_{\text{ no foglie }}
-        \]
-      \item Tuttavia si noti come si è ottenuto un assurdo logico in quanto se confrontiamo il membro di estrema sinistra con quello di estrema destra otteniamo che 
-        \[
-                2 \left|V\right| -2 \ge  2 \left|V\right| 
-        \]
-        l'assunzione \underline{falsa} è che \underline{non esistano foglie}
-        \item Dunque considero il grafo $ T - v $ dove $ v $ è la foglia di cui abbiamo dimostrato l'esistenza
-        \item Mi basta dimostrare che aggiungendo $ v $ a $ T -v $ non introduco cicli: 
-          \begin{itemize}
-            \item $ v $ è una foglia, quindi un ciclo non può passare per una foglia
-            \item Dato che per hp induttiva $ T-v $ è un albero, non ha cicli
-            \item Per questa ragione anche $ T $ non ha cicli, quindi $ T $ è connesso e senza cicli, ossia \underline{un albero}
-          \end{itemize}
-    \end{itemize}
+	\item \textit{Base induzione} $ V =1 $ chiaramente verificata come prima \checkmark
+	\item \textit{Ipotesi induttiva} un grafo finito per cui vale $ \left|V\right| = \left|E\right| + 1 $ è un \underline{albero}
+	      \begin{itemize}
+		      \item Devo dimostrare che il grafo ha almeno una foglia: supponiamo per assurdo che non la abbia
+		            \[
+			            2 \left|V\right| - 2 =\underbracket[0.1ex]{2 \left(\left|V\right| - 1\right) }_{\text{per hp}} =\overbracket[0.1ex]{ 2 \cdot \left|E\right| = \sum \deg \left(v\right)}^{\text{ teo \hyperlink{teosommadeigradi}{somma gradi} }} \underbracket[0.1ex]{\ge 2 \left|V\right|}_{\text{ no foglie }}
+		            \]
+		      \item Tuttavia si noti come si è ottenuto un assurdo logico in quanto se confrontiamo il membro di estrema sinistra con quello di estrema destra otteniamo che
+		            \[
+			            2 \left|V\right| -2 \ge  2 \left|V\right|
+		            \]
+		            l'assunzione \underline{falsa} è che \underline{non esistano foglie}
+		      \item Dunque considero il grafo $ T - v $ dove $ v $ è la foglia di cui abbiamo dimostrato l'esistenza
+		      \item Mi basta dimostrare che aggiungendo $ v $ a $ T -v $ non introduco cicli:
+		            \begin{itemize}
+			            \item $ v $ è una foglia, quindi un ciclo non può passare per una foglia
+			            \item Dato che per hp induttiva $ T-v $ è un albero, non ha cicli
+			            \item Per questa ragione anche $ T $ non ha cicli, quindi $ T $ è connesso e senza cicli, ossia \underline{un albero}
+		            \end{itemize}
+	      \end{itemize}
 \end{itemize}
-Quest'ultimo teorema ha un importante corollario: 
-\teorema{Corollario 1 a teorema di Eulero per i grafi}{
-  Sia $ n \in  \N \setminus \left\{0\right\} $ e sia $ d = \left(d_1, \ldots ,d_n\right) \in n \N ^{n} $. Allora esiste un albero con score $ d $ se e soltanto se è soddisfatta la relazione di eulero: 
-  \[
-  \left|V\right| -1 = \left|E\right| = \frac{1}{2} \sum_{i=1}^{\left|V\right|} d_i
-  \]
-}
+Quest'ultimo teorema ha un importante corollario:
+\begin{teorema}{Corollario 1 a teorema di Eulero per i grafi}
+	Sia $ n \in  \N \setminus \left\{0\right\} $ e sia $ d = \left(d_1, \ldots ,d_n\right) \in n \N ^{n} $. Allora esiste un albero con score $ d $ se e soltanto se è soddisfatta la relazione di eulero:
+	\[
+		\left|V\right| -1 = \left|E\right| = \frac{1}{2} \sum_{i=1}^{\left|V\right|} d_i
+	\]
+\end{teorema}
 \subsubsection*{Forzatura alla disconnessione}
-\teorema{Corollario 2 a teorema di Eulero per i grafi}{
-  Sia $ n \in \N  \setminus \left\{0\right\} $ e sia $ d \left(d_1, \ldots , d_n\right) \in  \N ^{n} $ . Se vale 
-  \[
-  \left|E\right| = \frac{1}{2} \sum_{i=1}^{n} d_i < n-1
-  \]
-  allora tutti i grafi che hanno score uguele a $ d $ sono \underline{sconnessi}
-}
+\begin{teorema}{Corollario 2 a teorema di Eulero per i grafi}
+	Sia $ n \in \N  \setminus \left\{0\right\} $ e sia $ d \left(d_1, \ldots , d_n\right) \in  \N ^{n} $ . Se vale
+	\[
+		\left|E\right| = \frac{1}{2} \sum_{i=1}^{n} d_i < n-1
+	\]
+	allora tutti i grafi che hanno score uguele a $ d $ sono \underline{sconnessi}
+\end{teorema}
 Informalmente, pensa che per un albero vale la relazione di Eulero, ossia $ \left|E\right| = v-1 $. Se a questo albero tolgo un qualsiasi lato ottengo un grafo sconnesso, dunque se $ \left|E\right| < v-1 $ ho un grafo sconnesso
 \subsubsection*{Forzatura alla connessione}
-\teorema{Forzatura alla connessione}{
-  Sia $ n \in  \N  \setminus \left\{0\right\} $ e sia $ d \left(d_1, \ldots ,d_n\right) \in  \N ^{n} $ tale che $ d_1 \le  \ldots \ldots \le  d_n $. Se vale 
-  \[
-  d_1 + d_n \ge  n-1
-  \]
-  allora tutti i grafi con score $ d $ \underline{sono connessi}
-}
+\begin{teorema}{Forzatura alla connessione}
+	Sia $ n \in  \N  \setminus \left\{0\right\} $ e sia $ d \left(d_1, \ldots ,d_n\right) \in  \N ^{n} $ tale che $ d_1 \le  \ldots \ldots \le  d_n $. Se vale
+	\[
+		d_1 + d_n \ge  n-1
+	\]
+	allora tutti i grafi con score $ d $ \underline{sono connessi}
+\end{teorema}
 \subsection{Albero di copertura}
-\definizione{Albero di copertura, spanning tree}{
-  Sia $ G $ un grafo. Un sottografo $ T $  di $ G $ si dice albero di copertura di $ G $ se 
-  \[
-    T\text{ è un albero e } V \left(T\right) = V \left(G\right)
-  \]
-}
-\label{teoesistenzaalberodicopertura} 
+\begin{definizione}{Albero di copertura, spanning tree}
+	Sia $ G $ un grafo. Un sottografo $ T $  di $ G $ si dice albero di copertura di $ G $ se
+	\[
+		T\text{ è un albero e } V \left(T\right) = V \left(G\right)
+	\]
+\end{definizione}
+
+\label{teoesistenzaalberodicopertura}
 Nota che se $ G $ ammette almeno un albero di copertura, allora \underline{$ G $ è conneso}
-\teorema{Esistenza albero di copertura}{
-  Sia $ G $ un grafo \underline{finito e connesso}. Allora 
-  \[
-  G \text{ ammette \underline{almeno} un albero di copertura }
-  \]
-}
+\begin{teorema}{Esistenza albero di copertura}
+	Sia $ G $ un grafo \underline{finito e connesso}. Allora
+	\[
+		G \text{ ammette \underline{almeno} un albero di copertura }
+	\]
+\end{teorema}
 \subsubsection*{Dimostrazione}
 Iniziamo considerando l'insieme di tutti i sottografi di $ G $
 \[
-  \mathcal{C} := \left\{C | C \text{ è un sottografo connesso di }G \text{ con } V \left(C\right) = V \left(G\right)\right\}
+	\mathcal{C} := \left\{C | C \text{ è un sottografo connesso di }G \text{ con } V \left(C\right) = V \left(G\right)\right\}
 \]
 nota che $ \mathcal{C} $ non è vuoto in quanto contiene almeno $ G $ stesso.
-\vskip3mm 
-Considero l'insieme contentente tutti i i possibili numeri di lati di un sottografo di $ G $: 
+\vskip3mm
+Considero l'insieme contentente tutti i i possibili numeri di lati di un sottografo di $ G $:
 \[
-  \mathcal{S} := \left\{n \in  \N  | n = \left|E \left(C\right)\right| \text{ per qualche } C \in \mathcal{C}\right\}
+	\mathcal{S} := \left\{n \in  \N  | n = \left|E \left(C\right)\right| \text{ per qualche } C \in \mathcal{C}\right\}
 \]
 anche questo insieme conterrà al minimo il numero di lati di $ G $ stesso.
-\vskip3mm 
+\vskip3mm
 Considero ora $ \overline{C} $, ossia il sottografo di $ G $ con il numero minimo di lati. Supponiamo per assurdo che questo non sia un albero. Se $ \overline{C} $ non fosse un albero, allora esisterebbe almeno un lato che, tolto, lascerebbe $ \overline{C} $ connesso. Questo è tuttavia impossibile in quanto togliendo un lato otterrei un altro grafo connesso con meno lati di $ \overline{C} $, ma per definizione $ \overline{C} $ è il sottografo di $ G $ con meno lati
 \section{Riassunto teoremi importanti}
 \begin{enumerate}
 	\item \hyperlink{diveuclidea}{Esistenza e unicità divisione euclidea}
-    \begin{itemize}
-      \item \textit{Esistenza:} induzione su $ n $, distinguo casi $ \left(n>0, m >0\right)$, $ \left(n<0, m>0\right)$, $ \left(n<0, m<0\right)$, $ \left(n>0, m<0\right) $
-      \item \textit{Unicità:}  pongo $ n= qm + r = q'm + r' $ e dimostro che $ \left(q-q'\right)m < 1 $
-    \end{itemize}
+	      \begin{itemize}
+		      \item \textit{Esistenza:} induzione su $ n $, distinguo casi $ \left(n>0, m >0\right)$, $ \left(n<0, m>0\right)$, $ \left(n<0, m<0\right)$, $ \left(n>0, m<0\right) $
+		      \item \textit{Unicità:}  pongo $ n= qm + r = q'm + r' $ e dimostro che $ \left(q-q'\right)m < 1 $
+	      \end{itemize}
 	\item \hyperlink{teorappnum}{Rappresentazione in base arbitraria maggiore o uguale a 2}
-    \begin{itemize}
-      \item \textit{Esistenza:} induz su $ n $. Divido per base $ b $, applico hp ind su $ q $ e manipolo sommatoria 
-      \item \textit{Unicità:} induz su $ n $. Rappresento $ n $ come sommatoria, la manipolo fino ad ottenere divisione euclidea
-    \end{itemize}
+	      \begin{itemize}
+		      \item \textit{Esistenza:} induz su $ n $. Divido per base $ b $, applico hp ind su $ q $ e manipolo sommatoria
+		      \item \textit{Unicità:} induz su $ n $. Rappresento $ n $ come sommatoria, la manipolo fino ad ottenere divisione euclidea
+	      \end{itemize}
 	\item \hyperlink{teomcd}{Esistenza e unicita del M.C.D}
-    \begin{itemize}
-      \item \textit{Esistenza:} considero il minimo $ d $ delle combinazioni lineari $ xn + ym $. Dimostro che il resto della divisione fra $ n $ e $ d $ deve essere 0, altrimenti apparterrebbe a $ S $ e sarebbe $ <d $, il che è assurdo
-      \item \textit{Unicità:} dimostro che due $ M.C.D. $ si dividono reciprocamente, e sono dunque uguali
-    \end{itemize}
+	      \begin{itemize}
+		      \item \textit{Esistenza:} considero il minimo $ d $ delle combinazioni lineari $ xn + ym $. Dimostro che il resto della divisione fra $ n $ e $ d $ deve essere 0, altrimenti apparterrebbe a $ S $ e sarebbe $ <d $, il che è assurdo
+		      \item \textit{Unicità:} dimostro che due $ M.C.D. $ si dividono reciprocamente, e sono dunque uguali
+	      \end{itemize}
 	\item \hyperlink{teomcm}{Esistenza e unicità del m.c.m}
-    \begin{itemize}
-      \item \textit{Esistenza:} considera $ \frac{nm}{\left(n,m\right)} $. Considera $ c $ multiplo comune, e dimostra che, posto $ n = n'\left(n,m\right), m = m'\left(n,m\right) $
-        \begin{itemize}
-          \item $ n' | c' $, $ m'|c' $
-          \item $ (n', m') = \left(\frac{n}{\left(n,m\right)}, \frac{m}{\left(n,m\right)}\right) = 1 $
-          \item $ M| c $
-        \end{itemize}
-      \item \textit{Unicità:} per via dell'unicità dell'M.C.D. segue l'unicità di $ M = \frac{nm}{\left(n,m\right)} $
-    \end{itemize}
+	      \begin{itemize}
+		      \item \textit{Esistenza:} considera $ \frac{nm}{\left(n,m\right)} $. Considera $ c $ multiplo comune, e dimostra che, posto $ n = n'\left(n,m\right), m = m'\left(n,m\right) $
+		            \begin{itemize}
+			            \item $ n' | c' $, $ m'|c' $
+			            \item $ (n', m') = \left(\frac{n}{\left(n,m\right)}, \frac{m}{\left(n,m\right)}\right) = 1 $
+			            \item $ M| c $
+		            \end{itemize}
+		      \item \textit{Unicità:} per via dell'unicità dell'M.C.D. segue l'unicità di $ M = \frac{nm}{\left(n,m\right)} $
+	      \end{itemize}
 	\item \hyperlink{teofondamentalearitmetica}{Teorema fondamentale dell'artimetica (fattorizzazione in fattori primi)}
-    \begin{itemize}
-      \item \textit{Esistenza:} induzione su $ n \ge 2 $. Distinguo se $ n $ è primo o meno e divido se non lo è
-      \item \textit{Unicità} induzione su lunghezza stringa $ a $. Applico ipotesi induttiva dopo aver diviso da entrambe le parti per $ q_i $
-    \end{itemize}
+	      \begin{itemize}
+		      \item \textit{Esistenza:} induzione su $ n \ge 2 $. Distinguo se $ n $ è primo o meno e divido se non lo è
+		      \item \textit{Unicità} induzione su lunghezza stringa $ a $. Applico ipotesi induttiva dopo aver diviso da entrambe le parti per $ q_i $
+	      \end{itemize}
 	\item \hyperlink{teoremacinesedelresto}{Teorema cinese del resto}
-    \begin{itemize}
-      \item \textit{Condizione soluzioni:} sfrutto il fatto che $ \left(n,m\right)= xn + ym $
-      \item \textit{Forma soluzioni:}
-        \begin{itemize}
-          \item $ \Rightarrow  $ esprimo differenza soluzioni $ c, c' $ in due modi e ottengo che $ c'-c $ è un multiplo comune, ossia $ \left[n,m\right]| c'-c $
-          \item $ \Leftarrow $ se $ c' \in \left[c\right]_{\left[n,m\right]} $ allora $ c' = c + k\left[n,m\right] $, ossia risolve entrabe le congruenze
-        \end{itemize}
-    \end{itemize}
+	      \begin{itemize}
+		      \item \textit{Condizione soluzioni:} sfrutto il fatto che $ \left(n,m\right)= xn + ym $
+		      \item \textit{Forma soluzioni:}
+		            \begin{itemize}
+			            \item $ \Rightarrow  $ esprimo differenza soluzioni $ c, c' $ in due modi e ottengo che $ c'-c $ è un multiplo comune, ossia $ \left[n,m\right]| c'-c $
+			            \item $ \Leftarrow $ se $ c' \in \left[c\right]_{\left[n,m\right]} $ allora $ c' = c + k\left[n,m\right] $, ossia risolve entrabe le congruenze
+		            \end{itemize}
+	      \end{itemize}
 	\item \hyperlink{fermateulero}{Teorema di Fermat-Eulero (potenza di intero invertibile per $ \phi \left(n\right) $)}
-    \begin{itemize}
-      \item Dimostro che la moltiplicazione di invertibili è una bigezione e la applico sul prodotto di tutti gli elementi: $ x_1\ldots x_k = u^{k}x_1\ldots x_k $
-      \item $ k = \phi \left(n\right) $
-    \end{itemize}
+	      \begin{itemize}
+		      \item Dimostro che la moltiplicazione di invertibili è una bigezione e la applico sul prodotto di tutti gli elementi: $ x_1\ldots x_k = u^{k}x_1\ldots x_k $
+		      \item $ k = \phi \left(n\right) $
+	      \end{itemize}
 	\item \hyperlink{teorsa}{Teorema crittografia RSA}
-   \begin{itemize}
-     \item $ x^{cd} = x^{k \phi \left(n\right) + 1} $
-   \end{itemize} 
-  \item \hyperref[teocongiung]{Equivalenza fra congiungibilità per passeggiate e per cammini(la relazione di congiungibilità è una relazione di quivalenza)}
-    \begin{itemize}
-      \item Un cammino è una passeggiata quindi se è congiungibile per passeggiata lo è anche per cammino
-      \item Consiidero insieme delle passeggiate e considero elemento più corto. Dimostro che è un cammino
-    \end{itemize}
-  \item \hyperref[teosommadeigradi]{Relazione fra somma dei gradi e numeri di lati in un grafo}
-    \begin{itemize}
-      \item Considero matrice di adiacenza ed equiparo somma prima per righe e po per colonne alla somma prima per colonne e poi per righe
-    \end{itemize}
-  \item \hyperref[teostrettedimano]{Teorema delle strette di mano}
-    \begin{itemize}
-      \item Sommatoria di gradi pari e dispari $ = 2 \left|E\right| $
-      \item Somma di $ n $ numeri dispari è pari $ \Leftrightarrow  n$ è pari
-    \end{itemize}
+	      \begin{itemize}
+		      \item $ x^{cd} = x^{k \phi \left(n\right) + 1} $
+	      \end{itemize}
+	\item \hyperref[teocongiung]{Equivalenza fra congiungibilità per passeggiate e per cammini(la relazione di congiungibilità è una relazione di quivalenza)}
+	      \begin{itemize}
+		      \item Un cammino è una passeggiata quindi se è congiungibile per passeggiata lo è anche per cammino
+		      \item Consiidero insieme delle passeggiate e considero elemento più corto. Dimostro che è un cammino
+	      \end{itemize}
+	\item \hyperref[teosommadeigradi]{Relazione fra somma dei gradi e numeri di lati in un grafo}
+	      \begin{itemize}
+		      \item Considero matrice di adiacenza ed equiparo somma prima per righe e po per colonne alla somma prima per colonne e poi per righe
+	      \end{itemize}
+	\item \hyperref[teostrettedimano]{Teorema delle strette di mano}
+	      \begin{itemize}
+		      \item Sommatoria di gradi pari e dispari $ = 2 \left|E\right| $
+		      \item Somma di $ n $ numeri dispari è pari $ \Leftrightarrow  n$ è pari
+	      \end{itemize}
 	\item \hyperlink{teoeulerografi}{Teorema di eulero per gli alberi}
-    \begin{itemize}
-      \item $ \Rightarrow  $ tolgo una foglia (la cui esistenza è garantita) e ricado in hp induttiva
-      \item $ \Leftarrow  $
-        \begin{itemize}
-          \item Dimostro che se vale $ \left|V\right|-1 = \left|E\right| + 1 $ allora ho almeno una foglia
-          \item Dimostro che aggiungendo quella foglia $ v $ al grafo  $ T - v $, (il quale è un albero per hp ind), allora ottengo un albero
-        \end{itemize}
-    \end{itemize}
-  \item \hyperref[teoesistenzaalberodicopertura]{Teorema di esistenza albero di copertura per grafi connessi e finiti}
-    \begin{itemize}
-      \item Considero insieme dei sottografi connessi di $ G $ che hanno gli stessi vertici di $ G $
-        \item Considero grafo con numero minore di lati. Questo deve essere un albero altrimenti esisterebbe almeno un lato che tolto lascerebbe il grafo connesso
-    \end{itemize}
+	      \begin{itemize}
+		      \item $ \Rightarrow  $ tolgo una foglia (la cui esistenza è garantita) e ricado in hp induttiva
+		      \item $ \Leftarrow  $
+		            \begin{itemize}
+			            \item Dimostro che se vale $ \left|V\right|-1 = \left|E\right| + 1 $ allora ho almeno una foglia
+			            \item Dimostro che aggiungendo quella foglia $ v $ al grafo  $ T - v $, (il quale è un albero per hp ind), allora ottengo un albero
+		            \end{itemize}
+	      \end{itemize}
+	\item \hyperref[teoesistenzaalberodicopertura]{Teorema di esistenza albero di copertura per grafi connessi e finiti}
+	      \begin{itemize}
+		      \item Considero insieme dei sottografi connessi di $ G $ che hanno gli stessi vertici di $ G $
+		      \item Considero grafo con numero minore di lati. Questo deve essere un albero altrimenti esisterebbe almeno un lato che tolto lascerebbe il grafo connesso
+	      \end{itemize}
 \end{enumerate}
 \end{document}
