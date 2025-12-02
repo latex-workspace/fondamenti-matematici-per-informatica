@@ -1,13 +1,12 @@
 %&../.preamble
-\endofdump
+\externalize{../.preamble}
+
 \usepackage{subcaption}
 \usepackage{multirow}
 \usepackage{circuitikz}
 
 
 \usetikzlibrary{external}
-\tikzset{external/system call={pdflatex --shell-escape --fmt=../.preamble --halt-on-error -jobname "\image" "\endofdump\texsource"}}
-\tikzexternalize[prefix=tikz/]
 
 \title{Fondamenti matematici per l'informatica}
 \author{Mattia Marini}
